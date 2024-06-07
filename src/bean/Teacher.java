@@ -3,7 +3,7 @@ package bean;
 import java.io.Serializable;
 public class Teacher implements Serializable {
 
-	
+
 	private String id;
 	private String password;
 	private String name;
@@ -13,7 +13,7 @@ public class Teacher implements Serializable {
 		return id;
 	}
 	public void setId(String id) {
-		this.id = id; 
+		this.id = id;
 	}
 	public String getPassword () {
 		return password;
@@ -22,7 +22,7 @@ public class Teacher implements Serializable {
 		this.password = password;
 	}
 
-	
+
 	public String getName() {
 		return name;
 	}
@@ -33,6 +33,6 @@ public class Teacher implements Serializable {
 		return school;
 	}
 	public void setSchool(School School) {
-		this.School = school;
+		this.school = school;
 	}
 }
