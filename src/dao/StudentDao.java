@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
+import bean.Student;
 import bean.School;
 
 public class StudentDao extends Dao{
@@ -69,7 +70,7 @@ public class StudentDao extends Dao{
 
     private List<Student> postFilter(ResultSet rSet, School school) throws Exception{
          //リストの初期化
-        List<Student> List = new ArrayList<>();
+        List<Student> list = new ArrayList<>();
         try{
              //リザルトセットを全権走査
             while (rSet.next()) {
@@ -299,7 +300,7 @@ public class StudentDao extends Dao{
                 try{
                     statement.close();
                 }catch (SQLException sqle){
-                    throw sqle
+                    throw sqle;
                 }
             }
             //コネクションを閉じる
@@ -307,7 +308,7 @@ public class StudentDao extends Dao{
                 try{
                     connection.close();
                 }catch (SQLException sqle){
-                    throw sqle
+                    throw sqle;
                 }
             }
         }
