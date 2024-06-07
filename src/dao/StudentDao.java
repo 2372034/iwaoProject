@@ -1,14 +1,14 @@
 package dao;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
-import bean.Student;
 import bean.School;
+import bean.Student;
 
 public class StudentDao extends Dao{
     private String baseSql = "SELECT * FROM student WHERE school_cd = ?";
@@ -93,7 +93,7 @@ public class StudentDao extends Dao{
         return list;
     }
 
-    private List<Student> filter(School school,int entYear, String classNum, boolean isAttend) throws Exception{
+    public List<Student> filter(School school,int entYear, String classNum, boolean isAttend) throws Exception{
         //リストの初期化
         List<Student> list = new ArrayList<>();
         //コネクションを確立
@@ -150,7 +150,7 @@ public class StudentDao extends Dao{
         return list;
     }
 
-    private List<Student> filter(School school,int entYear, boolean isAttend) throws Exception{
+    public List<Student> filter(School school,int entYear, boolean isAttend) throws Exception{
         //リストの初期化
         List<Student> list = new ArrayList<>();
         //コネクションを確立
@@ -205,7 +205,7 @@ public class StudentDao extends Dao{
         return list;
     }
 
-    private List<Student> filter(School school,boolean isAttend) throws Exception{
+    public List<Student> filter(School school,boolean isAttend) throws Exception{
         //リストを初期化
         List<Student> list = new ArrayList<>();
         //データベースへのコネクションを確立

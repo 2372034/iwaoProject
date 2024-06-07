@@ -1,24 +1,21 @@
 package dao;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.util.ArrayList;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import bean.School;
-import bean.Student;
 
 public class SchoolDao extends Dao{
     public School get(String cd) throws Exception{
     //学生インスタンスを初期化
-    School school = new Student();
+    School school = new School();
     //データベースへのコネクションを確立
     Connection connection = getConnection();
     //プリペアドステートメント
     PreparedStatement statement =  null;
-    
+
     try{
         //プリペアードステートメントにSQL文をセット
         statement = connection.prepareStatement("SELECT * FROM school WHERE cd=?");
