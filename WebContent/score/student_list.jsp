@@ -1,6 +1,7 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@include file="../header.jsp" %>
 <jsp:include page="menu.jsp">
 	<jsp:param name="title" value="得点管理システム" />
 	<jsp:param name="scripts" value="" />
@@ -86,4 +87,4 @@
 	</c:choose>
 </section>
 
-<%@include file="../footer.html" %>
+<%@include file="../footer.jsp" %>
