@@ -116,7 +116,7 @@ public class StudentDao extends Dao{
 
         try{
             //プリペアードステートメントにSQL文をセット
-            statement = connection.prepareStatement(baseSql + conditionIsAttend + order);
+            statement = connection.prepareStatement(baseSql + condition +  conditionIsAttend + order);
             //プリペアードステートメントに学校コードをバインド
             statement.setString(1,school.getCd());
             //プリペアードステートメントに入学年度をバインド
@@ -173,7 +173,7 @@ public class StudentDao extends Dao{
 
         try{
             //プリペアードステートメントにSQL文をセット
-            statement = connection.prepareStatement(baseSql + conditionIsAttend + order);
+            statement = connection.prepareStatement(baseSql + condition + conditionIsAttend + order);
             //プリペアードステートメントに学校コードをバインド
             statement.setString(1,school.getCd());
             //プリペアードステートメントに入学年度をバインド
@@ -254,7 +254,7 @@ public class StudentDao extends Dao{
         return list;
     }
 
-    public boolean save (Student student) throws Exception{
+   public boolean save (Student student) throws Exception{
         //コネクションを確立
         Connection connection = getConnection();
         //プリペアードステートメント
@@ -288,11 +288,11 @@ public class StudentDao extends Dao{
                 statement.setString(2,student.getName());
                 statement.setInt(3,student.getEntYear());
                 statement.setString(4,student.getClassNum());
-                statement.setBoolean(5,student.getIsAttend());
+                statement.setBoolean(5,student.isAttend());
                 statement.setString(6,student.getSchool().getCd());
             }
             //プリペアードステートメントを実行
-            count statement.executeQuery();
+            count = statement.executeUpdate();
         }catch(Exception e){
             throw e;
         }finally{
