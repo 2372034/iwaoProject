@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
-import bean.School;
+import bean.Student;
 
 public class StudentDao extends Dao{
     private String baseSql = "SELECT * FROM student WHERE school_cd = ?";
