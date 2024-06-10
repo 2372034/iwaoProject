@@ -25,13 +25,13 @@ public class ClassNumDao extends Dao{
         String order = "ORDER BY cd ASC";
 
         try{
-            statement = connection.prepareStatement(baseSql + connection + order);
+            statement = connection.prepareStatement(order);
             //プリペアードステートメントに学校コードをバインド
             statement.setString(1,school.getCd());
             //プリペアードステートメントを実行
             rSet = statement.executeQuery();
             //リストへの格納処理を実行
-            list = postFilter(rSet, school);
+            list = filter(rSet, school);
         }catch(Exception e){
             throw e;
         }finally{
