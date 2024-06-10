@@ -10,15 +10,11 @@
 <body>
 
  <div class="login">
-        <h2>ログイン</h2>
-        <form>
-            <input type="text" placeholder="ID" value="admin"><br>
-            <input type="password" placeholder="パスワード" value="*****"><br>
-            <input type="checkbox" id="show-password">
-            <label for="show-password">パスワードを表示</label><br>
-            <button type="submit">ログイン</button>
-        </form>
-   
+        <h2>ログインアウト</h2>
+            <label for="show-password">ログアウトしました</label><br>
+        <ul>   
+            <li><a href="/iwaoProject/score/ToStudentList.action">ログイン</a></li>
+ 		</ul>
 </body>
 </html>
 <%@include file="../footer.jsp" %>

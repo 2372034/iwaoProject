@@ -3,7 +3,6 @@
 <%@include file="../header.jsp" %>
 <!-- このページはhttp://localhost:8080/kouka2にアクセスしたさいに
 index.javaが実行され、フォワードされて表示する。 -->
-
 <!-- display:flexでmenu.jspとcontentを横並びにする -->
 <div class="container" style="display:flex; height:100vh;">
 	<!-- flexアイテム左側としてmuenu.jspを読み込む -->
