@@ -1,8 +1,9 @@
 package dao;
 
-import java.sql.ResultSet;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -123,7 +124,7 @@ public class SubjectDao extends Dao{
                 //学生が存在しなかった場合
                 //プリペアードステートメントにINSERT文をセット
                 statement = connection.prepareStatement(
-                    "insert into student (no, name, ent_year, class_num, is_attend, school_cd) values (?, ?, ?, ?, ?, ?)");
+                    "insert into student (cd, name, school) values (?, ?, ?)");
                     //プリペアードステートメントに値をバインド
                     statement.setString(1,subject.getCd());
                     statement.setString(2,subject.getName());
@@ -132,7 +133,7 @@ public class SubjectDao extends Dao{
                 //学生が存在した場合
                 //プリペアードステートメントにUPDATE文をセット
                 statement = connection.prepareStatement(
-                    "UPDATE subject SET cd=?, name=?, school=?,is_attend=? WHERE no=?"
+                    "UPDATE subject SET cd=?, name=?, school=?,is_attend=? WHERE cd=?"
                 );
                 //プリペアードステートメントに値をバインド
                 statement.setString(1,subject.getCd());
