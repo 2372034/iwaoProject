@@ -254,7 +254,7 @@ public class StudentDao extends Dao{
         return list;
     }
 
-   public boolean save (Student student) throws Exception{
+    public boolean save (Student student) throws Exception{
         //コネクションを確立
         Connection connection = getConnection();
         //プリペアードステートメント
