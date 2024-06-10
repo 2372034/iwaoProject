@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bean.School;
-import bean.Student;
+
 import bean.Subject;
 
 public class SubjectDao extends Dao{
@@ -29,14 +29,14 @@ public class SubjectDao extends Dao{
             ResultSet rSet = statement.executeQuery();
 
             //学校DAOを初期化
-            //SchoolDao schoolDao = new SchoolDao();
+            SchoolDao schoolDao = new SchoolDao();
 
             if (rSet.next()){
                 //リザルトセットが存在する場合
                 //学生インスタンスに検索結果をセット
                 subject.setCd(rSet.getString("cd"));
                 subject.setName(rSet.getString("name"));
-                subject.setSchool(rSet.getInt("school"));
+                subject.setSchool(rSet.getString("school"));
                 //学校フィールドには学校コードで検索した学校インスタンスをセット
                 //subject.setSchool(schoolDao.get(rSet.getString("school_cd")));
             }else{
