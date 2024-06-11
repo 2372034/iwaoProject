@@ -1,15 +1,16 @@
 <%@page contentType="text/html; charset=UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../header.jsp" %>
+<link rel="stylesheet" type="text/css" href="../css/style.css">
 <!-- このページはhttp://localhost:8080/kouka2にアクセスしたさいに
 index.javaが実行され、フォワードされて表示する。 -->
 <!-- display:flexでmenu.jspとcontentを横並びにする -->
-<div class="container" style="display:flex; height:100vh;">
+<div class="container">
 	<!-- flexアイテム左側としてmuenu.jspを読み込む -->
 	<%@include file="menu.jsp" %>
 
 	<!-- flexアイテム右側としてdiv class="content" -->
-    <div style="display: flex; flex-direction: column; align-items: center; padding: 20px; width:100%">
+    <div class="content">
         <div style="margin-bottom: 20px; width: 100%; text-align: left; background-color: #f8f8f8; padding: 10px; border: 1px solid #ddd;">
             <h1 style="margin: 0;">メニュー</h1>
         </div>
