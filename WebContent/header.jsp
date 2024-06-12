@@ -6,4 +6,4 @@
 <title>Servlet/JSP Samples</title>
 </head>
 <body>
-<h1 style="background-color: lightblue;">得点管理システム</h1>
+<h1>得点管理システム</h1>

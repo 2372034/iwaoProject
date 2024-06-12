@@ -51,45 +51,44 @@ public class SubjectDao extends Dao {
         return subject;
     }
 
+    //学校を指定して科目の一覧を取得するメソッド
     private List<Subject> filter(School school) throws Exception {
+        //リストの初期化
         List<Subject> list = new ArrayList<>();
+        //コネクションを確立
         Connection connection = getConnection();
+        //プリペアドステートメント
         PreparedStatement statement = null;
+        //リザルトセット
         ResultSet rSet = null;
+        //SQL文のソート
+        String order = "ORDER BY no ASC";
+
 
         try {
-            statement = connection.prepareStatement("SELECT * FROM subject WHERE school_cd=?");
+            //プリペアードステートメントにSQL文をセット
+            statement = connection.prepareStatement("SELECT * FROM subject WHERE school_cd=?" + order);
+            //プリペアードステートメントに学校コードをバインド
             statement.setString(1, school.getCd());
             rSet = statement.executeQuery();
-
-            while (rSet.next()) {
-                Subject subject = new Subject();
-                subject.setCd(rSet.getString("cd"));
-                subject.setName(rSet.getString("name"));
-                subject.setSchool(school);
-                list.add(subject);
-            }
+            //リストへの格納処理を実行
+            list = postFilter(rSet, school);
         } catch (Exception e) {
             throw e;
         } finally {
-            if (rSet != null) {
-                try {
-                    rSet.close();
-                } catch (SQLException sqle) {
-                    throw sqle;
-                }
-            }
+            //プリペアードステートメントを閉じる
             if (statement != null) {
-                try {
+                try{
                     statement.close();
-                } catch (SQLException sqle) {
+                }catch (SQLException sqle){
                     throw sqle;
                 }
             }
+            //コネクションを閉じる
             if (connection != null) {
-                try {
+                try{
                     connection.close();
-                } catch (SQLException sqle) {
+                }catch (SQLException sqle){
                     throw sqle;
                 }
             }
@@ -97,25 +96,28 @@ public class SubjectDao extends Dao {
         return list;
     }
 
+    //saveメソッド
+    //科目インスタンスをデータベースに保存するメソッド。科目登録、または科目変更、削除の処理で利用する。
+    //データが存在する場合は更新、存在しない場合は登録し、戻り値として登録した情報が1件以上あればtrueを、なければfalseを戻す
     public boolean save(Subject subject) throws Exception {
         Connection connection = getConnection();
         PreparedStatement statement = null;
         int count = 0;
 
         try {
-            Subject old = get(subject.getCd(), subject.getSchool());
+            Subject old = get(subject.getCd(), subject.getschool());
             if (old == null) {
                 statement = connection.prepareStatement(
                         "INSERT INTO subject (cd, name, school_cd) VALUES (?, ?, ?)");
                 statement.setString(1, subject.getCd());
                 statement.setString(2, subject.getName());
-                statement.setString(3, subject.getSchool().getCd());
+                statement.setString(3, subject.getschool().getCd());
             } else {
                 statement = connection.prepareStatement(
                         "UPDATE subject SET name=?, school_cd=? WHERE cd=?");
-                statement.setString(1, subject.getName());
-                statement.setString(2, subject.getSchool().getCd());
-                statement.setString(3, subject.getCd());
+                statement.setString(1, subject.getCd());
+                statement.setString(2, subject.getName());
+                statement.setString(3, subject.getschool().getCd());
             }
             count = statement.executeUpdate();
         } catch (Exception e) {

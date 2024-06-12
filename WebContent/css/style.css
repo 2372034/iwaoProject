@@ -1,3 +1,28 @@
+/* 共通部分 */
+body{
+	margin: 0;
+}
+
+h1{
+	background-color: lightblue;
+	margin: 0;
+	padding-left: 1.5em;
+}
+
+h2{
+	background-color: #f8f8f8;
+	border: 1px solid #ddd;
+	margin-bottom: 20px;
+    width: 100%;
+    text-align: left;
+    padding: 10px;
+}
+/* Container Flex Styles */
+.container {
+    display: flex;
+    height: 100vh;
+}
+
 /* サイドバーのスタイル */
 .global-navi {
     width: 200px;
@@ -35,15 +60,12 @@
 }
 /* サイドバーのスタイルここまで */
 
-/* Main Container Flex Styles */
-.main-container {
-    display: flex;
-    height: 100vh;
-}
+/* コンテンツのスタイル */
+
+/* indexのスタイル */
 
 /* Main Content Flex Styles */
 .main-content {
-    display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
@@ -52,12 +74,7 @@
 
 /* Main Header Styles */
 .main-header {
-    margin-bottom: 20px;
-    width: 100%;
-    text-align: left;
-    background-color: #f8f8f8;
-    padding: 10px;
-    border: 1px solid #ddd;
+
 }
 
 /* Main Flex Items Container Styles */
@@ -95,4 +112,13 @@
 .main-flex-item a {
     color: blue;
     text-decoration: none;
+}
+/* indexのスタイルここまで */
+
+/* 生徒一覧のスタイル */
+.student_list_content{
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    width: 100%;
 }
