@@ -14,13 +14,19 @@ public class SubjectDao extends Dao {
 
     // 引数に科目コード(cd)と教員が所属している学校(school)を与えると科目を返すgetメソッド
     public Subject get(String cd, School school) throws Exception {
+        //科目インスタンスを初期化
         Subject subject = new Subject();
+        //データベースへのコネクションを確立
         Connection connection = getConnection();
+        //プリペアドステートメント
         PreparedStatement statement = null;
 
         try {
+            //プリペアードステートメントにSQL文をセット
             statement = connection.prepareStatement("SELECT * FROM subject WHERE cd=?");
+            //プリペアードステートメントに学生番号をバインド
             statement.setString(1, cd);
+            //プリペアードステートメントを実行
             ResultSet rSet = statement.executeQuery();
 
             if (rSet.next()) {
@@ -52,7 +58,8 @@ public class SubjectDao extends Dao {
     }
 
     //学校を指定して科目の一覧を取得するメソッド
-    private List<Subject> filter(School school) throws Exception {
+    @SuppressWarnings("unused")
+	private List<Subject> filter(School school) throws Exception {
         //リストの初期化
         List<Subject> list = new ArrayList<>();
         //コネクションを確立

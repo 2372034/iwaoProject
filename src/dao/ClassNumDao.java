@@ -7,9 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import bean.ClassNum;
 import bean.School;
-import bean.Subject;
 
 public class ClassNumDao extends Dao{
     public List<String> filter(School school) throws Exception{
@@ -26,16 +24,14 @@ public class ClassNumDao extends Dao{
 
         try{
             //プリペアードステートメントにSQL文をセット
-            statement = connection.prepareStatement("SELECT * FROM class_num WHERE num=?" + order);
-            //プリペアードステートメントにクラス番号をバインド
-            statement.setString(1,school.getNum());
+            statement = connection.prepareStatement("SELECT * FROM class_num WHERE school_cd=?" + order);
+            //プリペアードステートメントに学校番号をバインド
+            statement.setString(1,school.getCd());
             //プリペアードステートメントを実行
             rSet = statement.executeQuery();
             //リストへの格納処理を実行
             while (rSet.next()) {
-                String string = new String();
-                string.setSchool(school);
-                string.setNum(rSet.getString("num"));
+                String string = rSet.getString("class_num");
                 list.add(string);
             }
         }catch(Exception e){

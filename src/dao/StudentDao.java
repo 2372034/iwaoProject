@@ -213,7 +213,8 @@ public class StudentDao extends Dao{
         return list;
     }
 
-    //学校、在学フラグを指定して学生の一覧を取得するメソッド.初期表示時にはこちらのメソッドが実行される
+
+	//学校、在学フラグを指定して学生の一覧を取得するメソッド.初期表示時にはこちらのメソッドが実行される
     public List<Student> filter(School school,boolean isAttend) throws Exception{
         //リストを初期化
         List<Student> list = new ArrayList<>();
