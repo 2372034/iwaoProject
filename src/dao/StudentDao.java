@@ -11,7 +11,12 @@ import bean.School;
 import bean.Student;
 
 public class StudentDao extends Dao{
+    //各メソッドで使用するStudentテーブルからデータを取得するSQLを用意
     private String baseSql = "SELECT * FROM student WHERE school_cd = ?";
+
+    //getメソッド 学生番号を指定して学生インスタンスを1件取得するメソッド
+    //学生変更の処理内で学生の詳細データを取得する際に利用
+    //存在しない場合はnullを学生インスタンスにセットし、戻す。
     public Student get(String no) throws Exception{
         //学生インスタンスを初期化
         Student student = new Student();
@@ -69,6 +74,7 @@ public class StudentDao extends Dao{
         return student;
     }
 
+    //postFilterメソッド フィルター後のリストへの格納処理をするメソッド
     private List<Student> postFilter(ResultSet rSet, School school) throws Exception{
          //リストの初期化
         List<Student> list = new ArrayList<>();
@@ -93,6 +99,7 @@ public class StudentDao extends Dao{
         return list;
     }
 
+    //学校、入学年度、クラス番号、在学フラグを指定して学生の一覧を取得するメソッド
     public List<Student> filter(School school,int entYear, String classNum, boolean isAttend) throws Exception{
         //リストの初期化
         List<Student> list = new ArrayList<>();
@@ -150,6 +157,7 @@ public class StudentDao extends Dao{
         return list;
     }
 
+    //学校、入学年度、在学フラグを指定して学生の一覧を取得するメソッド
     public List<Student> filter(School school,int entYear, boolean isAttend) throws Exception{
         //リストの初期化
         List<Student> list = new ArrayList<>();
@@ -205,6 +213,7 @@ public class StudentDao extends Dao{
         return list;
     }
 
+    //学校、在学フラグを指定して学生の一覧を取得するメソッド.初期表示時にはこちらのメソッドが実行される
     public List<Student> filter(School school,boolean isAttend) throws Exception{
         //リストを初期化
         List<Student> list = new ArrayList<>();
@@ -254,6 +263,9 @@ public class StudentDao extends Dao{
         return list;
     }
 
+    //saveメソッド
+    //学生インスタンスをデータベースに保存するメソッド。学生登録、または学生更新の処理で利用する。
+    //データが存在する場合は更新、存在しない場合は登録し、戻り値として登録した情報が1件以上あればtrueを、なければfalseを戻す
     public boolean save (Student student) throws Exception{
         //コネクションを確立
         Connection connection = getConnection();
