@@ -12,27 +12,31 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(urlPatterns={"*.action"})
 public class FrontController extends HttpServlet {
 
-	public void doPost(
-		HttpServletRequest request, HttpServletResponse response
-	) throws ServletException, IOException {
-		PrintWriter out=response.getWriter();
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		try {
-			String path=request.getServletPath().substring(1);
+			//パスを取得
+			String path=req.getServletPath().substring(1);
+			//ファイル名を取得しクラス名に変換
 			String name=path.replace(".a", "A").replace('/', '.');
-			Action action=(Action)Class.forName(name).
-				getDeclaredConstructor().newInstance();
-			action.execute(request, response);
-//			String url=action.execute(request, response);
-//			request.getRequestDispatcher(url).
-//				forward(request, response);
+
+			System.out.println("★ servlet path ->" + req.getServletPath());
+			System.out.println("★ class name ->" + name);
+
+			//アクションクラスのインスタンスを返却
+			Action action=(Action) Class.forName(name).getDeclaredConstructor().newInstance();
+			//遷移先URLを取得
+			action.execute(req, res);
+//			String url=action.execute(req, res);
+//			request.getRequestDispatcher(url).forward(req, res);
 		} catch (Exception e) {
-			e.printStackTrace(out);
+			e.printStackTrace();
+			req.getRequestDispatcher("/error.jsp").forward(req,res);
 		}
 	}
 
-	public void doGet(
-		HttpServletRequest request, HttpServletResponse response
-	) throws ServletException, IOException {
-		doPost(request, response);
+	@Override
+	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		doGet(req, res);
 	}
 }
