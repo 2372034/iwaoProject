@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bean.ClassNum;
+import bean.School;
+import bean.Subject;
 
 public class ClassNumDao extends Dao{
     public List<String> filter(School school) throws Exception{
@@ -20,17 +22,22 @@ public class ClassNumDao extends Dao{
         //リザルトセット
         ResultSet rSet = null;
         //SQL文の条件
-        // String order = "ORDER BY cd ASC";
+        String order = "ORDER BY no ASC";
 
         try{
             //プリペアードステートメントにSQL文をセット
-            statement = connection.prepareStatement("SELECT * FROM class_num WHERE num=?");
+            statement = connection.prepareStatement("SELECT * FROM class_num WHERE num=?" + order);
             //プリペアードステートメントにクラス番号をバインド
             statement.setString(1,school.getNum());
             //プリペアードステートメントを実行
             rSet = statement.executeQuery();
             //リストへの格納処理を実行
-            list = postFilter(rSet, school);
+            while (rSet.next()) {
+                String string = new String();
+                string.setSchool(school);
+                string.setNum(rSet.getString("num"));
+                list.add(string);
+            }
         }catch(Exception e){
             throw e;
         }finally{
