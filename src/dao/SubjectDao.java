@@ -72,7 +72,7 @@ public class SubjectDao extends Dao {
             statement.setString(1, school.getCd());
             rSet = statement.executeQuery();
             //リストへの格納処理を実行
-            list = postFilter(rSet, school);
+            list = filter(rSet, school);
         } catch (Exception e) {
             throw e;
         } finally {
