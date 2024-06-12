@@ -1,9 +1,8 @@
-package score.main;
+package score;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpSession;
 
 import bean.Student;
 import bean.Teacher;
+import dao.ClassNumDao;
 import tool.Action;
 
 public class StudentListAction extends Action {
@@ -34,9 +34,9 @@ public class StudentListAction extends Action {
 		Map<String,String> errors=new HashMap<>();
 
 
-		entYearStr=req.getParameter("f1");
-		classNum=req.getParameter("f2");
-		isAttendStr=req.getParameter("f3");
+		entYearStr=request.getParameter("f1");
+		classNum=request.getParameter("f2");
+		isAttendStr=request.getParameter("f3");
 
 		List<String> list = cNumDao.filter(teacher.getSchool());
 
@@ -52,7 +52,7 @@ public class StudentListAction extends Action {
 		    students = sDao.filter(teacher.getSchool(), isAttend);
 		} else {
 		    errors.put("f1", "クラスを指定する場合は入学年度も指定してください");
-		    req.setAttribute("errors", errors);
+		    request.setAttribute("errors", errors);
 		    // 全学生情報を取得
 		    students = sDao.filter(teacher.getSchool(), isAttend);
 		}
@@ -70,26 +70,25 @@ public class StudentListAction extends Action {
 		    entYearSet.add(i);
 		}
 
-		req.setAttribute("f1", entYear);
+		request.setAttribute("f1", entYear);
 
 		// リクエストにクラス番号をセット
-		req.setAttribute("f2", classNum);
+		request.setAttribute("f2", classNum);
 
 		// 在学フラグが送信されていた場合
 		if (isAttendStr != null) {
 		    // 在学フラグを立てる
 		    isAttend = true;
 		    // リクエストに在学フラグをセット
-		    req.setAttribute("f3", isAttendStr);
+		    request.setAttribute("f3", isAttendStr);
 		}
 
 		// リクエストに学生リストをセット
-		req.setAttribute("students", students);
+		request.setAttribute("students", students);
 
 		// リクエストにデータをセット
-		req.setAttribute("class_num_set", list);
-		req.setAttribute("ent_year_set", entYearSet);
-
-		req.getRequestDispatcher( "student_list.jsp").forward(req,res);
+		request.setAttribute("class_num_set", list);
+		request.setAttribute("ent_year_set", entYearSet);
+		request.getRequestDispatcher( "student_list.jsp");
 	}
 }
