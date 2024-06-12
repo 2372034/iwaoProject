@@ -1,5 +1,6 @@
-<%@page pageEncoding="UTF-8" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@include file="../header.jsp" %>
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 
 <div class="global-navi" style="border-right: 2px solid black; flex: 0 0 15%;">
@@ -18,4 +19,19 @@
         </ul>
     </nav>
 </div>
-
+<html>
+<head>
+ <meta charset="UTF-8">
+<title>学生情報登録</title>
+</head>
+<body>
+<div class="main">
+           <h2>学生情報変更</h2>
+<div class="form-group">
+                     <label for="admissionYear">登録が完了しました</label>
+                     <li><a href="/iwaoProject/score/ToStudentList.action">学生一覧</a></li>
+                </div>
+            
+</body>
+</html>
+<%@include file="../footer.jsp" %>

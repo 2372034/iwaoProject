@@ -1,12 +1,14 @@
 package dao;
 
-import java.sql.ResultSet;
-import java.util.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 import bean.School;
+import bean.Student;
 
 public class StudentDao extends Dao{
     private String baseSql = "SELECT * FROM student WHERE school_cd = ?";
@@ -20,7 +22,7 @@ public class StudentDao extends Dao{
 
         try{
             //プリペアードステートメントにSQL文をセット
-            statement = connection.preparedStatement("SELECT * FROM student WHERE no=?");
+            statement = connection.prepareStatement("SELECT * FROM student WHERE no=?");
             //プリペアードステートメントに学生番号をバインド
             statement.setString(1,no);
             //プリペアードステートメントを実行
@@ -69,7 +71,7 @@ public class StudentDao extends Dao{
 
     private List<Student> postFilter(ResultSet rSet, School school) throws Exception{
          //リストの初期化
-        List<Student> List = new ArrayList<>();
+        List<Student> list = new ArrayList<>();
         try{
              //リザルトセットを全権走査
             while (rSet.next()) {
@@ -91,7 +93,7 @@ public class StudentDao extends Dao{
         return list;
     }
 
-    private List<Student> filter(School school,int entYear, String classNum, boolean isAttend) throws Exception{
+    public List<Student> filter(School school,int entYear, String classNum, boolean isAttend) throws Exception{
         //リストの初期化
         List<Student> list = new ArrayList<>();
         //コネクションを確立
@@ -114,13 +116,13 @@ public class StudentDao extends Dao{
 
         try{
             //プリペアードステートメントにSQL文をセット
-            statement = connection.prepareStatement(baseSql + conditionIsAttend + order);
+            statement = connection.prepareStatement(baseSql + condition +  conditionIsAttend + order);
             //プリペアードステートメントに学校コードをバインド
             statement.setString(1,school.getCd());
             //プリペアードステートメントに入学年度をバインド
-            statement.steInt(2,entYear);
+            statement.setInt(2,entYear);
             //プリペアードステートメントにクラス番号をバインド
-            statement.steInt(3,classNum);
+            statement.setString(3,classNum);
             //プライベートステートメントを実行
             rSet = statement.executeQuery();
             //リストへの格納処理を実行
@@ -148,7 +150,7 @@ public class StudentDao extends Dao{
         return list;
     }
 
-    private List<Student> filter(School school,int entYear, boolean isAttend) throws Exception{
+    public List<Student> filter(School school,int entYear, boolean isAttend) throws Exception{
         //リストの初期化
         List<Student> list = new ArrayList<>();
         //コネクションを確立
@@ -171,11 +173,11 @@ public class StudentDao extends Dao{
 
         try{
             //プリペアードステートメントにSQL文をセット
-            statement = connection.prepareStatement(baseSql + conditionIsAttend + order);
+            statement = connection.prepareStatement(baseSql + condition + conditionIsAttend + order);
             //プリペアードステートメントに学校コードをバインド
             statement.setString(1,school.getCd());
             //プリペアードステートメントに入学年度をバインド
-            statement.steInt(2,entYear);
+            statement.setInt(2,entYear);
             //プリペアードステートメントを実行
             rSet = statement.executeQuery();
             //リストへの格納処理を実行
@@ -203,7 +205,7 @@ public class StudentDao extends Dao{
         return list;
     }
 
-    private List<Student> filter(School school,boolean isAttend) throws Exception{
+    public List<Student> filter(School school,boolean isAttend) throws Exception{
         //リストを初期化
         List<Student> list = new ArrayList<>();
         //データベースへのコネクションを確立
@@ -256,7 +258,7 @@ public class StudentDao extends Dao{
         //コネクションを確立
         Connection connection = getConnection();
         //プリペアードステートメント
-        PrepareStatement statement = null;
+        PreparedStatement statement = null;
         //実行件数
         int count = 0;
 
@@ -270,10 +272,10 @@ public class StudentDao extends Dao{
                     "insert into student (no, name, ent_year, class_num, is_attend, school_cd) values (?, ?, ?, ?, ?, ?)");
                     //プリペアードステートメントに値をバインド
                     statement.setString(1,student.getNo());
-                    statement.setStringa(2,student.getName());
+                    statement.setString(2,student.getName());
                     statement.setInt(3,student.getEntYear());
                     statement.setString(4,student.getClassNum());
-                    statement.setBoolean(5,student.getIsAttend());
+                    statement.setBoolean(5,student.isAttend());
                     statement.setString(6,student.getSchool().getCd());
             }else{
                 //学生が存在した場合
@@ -283,14 +285,14 @@ public class StudentDao extends Dao{
                 );
                 //プリペアードステートメントに値をバインド
                 statement.setString(1,student.getNo());
-                statement.setStringa(2,student.getName());
+                statement.setString(2,student.getName());
                 statement.setInt(3,student.getEntYear());
                 statement.setString(4,student.getClassNum());
-                statement.setBoolean(5,student.getIsAttend());
+                statement.setBoolean(5,student.isAttend());
                 statement.setString(6,student.getSchool().getCd());
             }
             //プリペアードステートメントを実行
-            count statement.executeQuery();
+            count = statement.executeUpdate();
         }catch(Exception e){
             throw e;
         }finally{
@@ -299,7 +301,7 @@ public class StudentDao extends Dao{
                 try{
                     statement.close();
                 }catch (SQLException sqle){
-                    throw sqle
+                    throw sqle;
                 }
             }
             //コネクションを閉じる
@@ -307,7 +309,7 @@ public class StudentDao extends Dao{
                 try{
                     connection.close();
                 }catch (SQLException sqle){
-                    throw sqle
+                    throw sqle;
                 }
             }
         }
