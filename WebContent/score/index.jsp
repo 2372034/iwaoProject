@@ -16,15 +16,15 @@ index.javaが実行され、フォワードされて表示する。 -->
         </div>
         <div class="main-flex-items-container">
             <div class="main-flex-item">
-                <a href="/iwaoProject/score/ToStudentList.action">学生管理</a>
+                <a href="/iwaoProject/score/StudentList.action">学生管理</a>
             </div>
             <div class="main-flex-item">
                 <div style="margin-bottom: 5px;">成績管理</div>
-                <a href="/iwaoProject/score/ToStudentList.action">成績登録</a><br>
-                <a href="/iwaoProject/score/ToStudentList.action">成績参照</a>
+                <a href="#">成績登録</a><br>
+                <a href="#">成績参照</a>
             </div>
             <div class="main-flex-item">
-                <a href="/iwaoProject/score/ToStudentList.action">科目管理</a>
+                <a href="#">科目管理</a>
             </div>
         </div>
     </div>
