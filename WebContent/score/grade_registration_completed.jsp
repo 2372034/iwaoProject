@@ -9,7 +9,7 @@
             <li><a href="/iwaoProject/score/ToMainMenu.action">メニュー</a></li>
             <li><a href="/iwaoProject/score/ToStudentList.action">学生管理</a></li>
             <li>
-                <label>成績管理</label>
+         "WebContent/score/grade_registration_completed.jsp"       <label>成績管理</label>
                 <ul>
                     <li><a href="/iwaoProject/score/ToScoreRegister.action">成績登録</a></li>
                     <li><a href="/iwaoProject/score/ToScoreView.action">成績参照</a></li>
