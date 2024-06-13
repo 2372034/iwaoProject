@@ -34,11 +34,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>科目管理システム - 科目登録</title>
+<title>科目登録</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<h1>科目管理システム</h1>
 <h2>科目情報登録</h2>
 <form id="subjectForm">
 <label for="subjectCode">科目コード</label>
