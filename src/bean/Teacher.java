@@ -32,7 +32,7 @@ public class Teacher implements Serializable {
 	public School getSchool() {
 		return school;
 	}
-	public void setSchool(School School) {
+	public void setSchool(School school) {
 		this.school = school;
 	}
 }
