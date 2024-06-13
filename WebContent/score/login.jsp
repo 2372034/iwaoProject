@@ -1,23 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@include file="../header.jsp" %>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-
- <div class="login">
-        <h2>ログイン</h2>
-        <form>
-            <input type="text" menu.jsp="ID" value="admin"><br>
-            <input type="password" placeholder="パスワード" value="*****"><br>
-            <input type="checkbox" id="show-password">
-            <label for="show-password">パスワードを表示</label><br>
-            <button type="submit">ログイン</button>
-            <ul id="errorMessages" class="error"></ul>
-        </form>
-   
-</body>
-</html>
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<link rel="stylesheet" type="text/css" href="../css/style.css">
+<%@include file="../header.jsp" %>
+<form action="LoginExecute.action" method="post" class="login-form">
+<c:if test="${user != null}">
+    <p>ログインに失敗しました。IDまたはパスワードが正しくありません。</p>
+</c:if>
+<h2>ログイン</h2>
+    <input type="text" name="id" placeholder="ID" maxlength="20" required >
+    <input type="password" id="password" name="password" placeholder="パスワード" maxlength="20" required>
+    <label for="chk_d_ps">
+        <input type="checkbox" id="chk_d_ps" onclick="togglePassword()"> パスワードを表示
+    </label>
+    <input type="submit" value="ログイン">
+</form>
 <%@include file="../footer.jsp" %>
+<script>
+    function togglePassword() {
+        var passwordField = document.getElementById("password");
+        if (passwordField.type == "password") {
+            passwordField.type = "text";
+        } else {
+            passwordField.type = "password";
+        }
+    }
+</script>
