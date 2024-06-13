@@ -39,7 +39,7 @@ public class TestDao extends Dao {
                 test.setClassNum(rSet.getString("class_num"));
             }
         } catch (SQLException e) {
-            throw new Exception("Error fetching test data", e);
+            throw new Exception("テストデータの取得中にエラーが発生しました", e);
         } finally {
             if (rSet != null) {
                 try {
@@ -88,7 +88,7 @@ public class TestDao extends Dao {
                 list.add(test);
             }
         } catch (SQLException e) {
-            throw new Exception("Error processing test data", e);
+            throw new Exception("テストデータの処理中にエラーが発生しました", e);
         }
         return list;
     }
@@ -111,7 +111,7 @@ public class TestDao extends Dao {
 
             list = postFilter(rSet, school);
         } catch (SQLException e) {
-            throw new Exception("Error filtering test data", e);
+            throw new Exception("テストデータのフィルタリング中にエラーが発生しました", e);
         } finally {
             if (rSet != null) {
                 try {
@@ -153,7 +153,7 @@ public class TestDao extends Dao {
             connection.commit();
         } catch (Exception e) {
             connection.rollback();
-            throw new Exception("Error saving test data", e);
+            throw new Exception("テストデータの保存中にエラーが発生しました", e);
         } finally {
             if (connection != null) {
                 try {
@@ -183,7 +183,7 @@ public class TestDao extends Dao {
 
             result = statement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new Exception("Error saving test", e);
+            throw new Exception("テストの保存中にエラーが発生しました", e);
         } finally {
             if (statement != null) {
                 try {
@@ -211,7 +211,7 @@ public class TestDao extends Dao {
             connection.commit();
         } catch (Exception e) {
             connection.rollback();
-            throw new Exception("Error deleting test data", e);
+            throw new Exception("テストデータの削除中にエラーが発生しました", e);
         } finally {
             if (connection != null) {
                 try {
@@ -239,7 +239,7 @@ public class TestDao extends Dao {
 
             result = statement.executeUpdate() > 0;
         } catch (SQLException e) {
-            throw new Exception("Error deleting test", e);
+            throw new Exception("テストの削除中にエラーが発生しました", e);
         } finally {
             if (statement != null) {
                 try {
@@ -252,5 +252,5 @@ public class TestDao extends Dao {
 
         return result;
     }
-
 }
+
