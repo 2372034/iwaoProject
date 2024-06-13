@@ -64,18 +64,14 @@ public class TeacherDao extends Dao {
     public Teacher login(String id, String password) throws Exception {
         Teacher teacher = null;
 
-        // データベース接続情報
-        String url = "jdbc:h2:tcp://localhost/~/iwaoProject";
-        String user = "sa";
-        String dbPassword = "";
-
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rSet = null;
 
         try {
             conn = DriverManager.getConnection(url, user, dbPassword);
-            String sql = "SELECT * FROM teachers WHERE id = ? AND password = ?";
+            // ログインユーザーをteacherテーブルから探す
+            String sql = "SELECT * FROM teacher WHERE id = ? AND password = ?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, id);
             pstmt.setString(2, password);
