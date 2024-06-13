@@ -64,19 +64,18 @@ public class TeacherDao extends Dao {
     public Teacher login(String id, String password) throws Exception {
         Teacher teacher = null;
 
-        Connection conn = null;
-        PreparedStatement pstmt = null;
+        Connection connection = getConnection();
+        PreparedStatement statement = null;
         ResultSet rSet = null;
 
         try {
-            conn = DriverManager.getConnection(url, user, dbPassword);
             // ログインユーザーをteacherテーブルから探す
             String sql = "SELECT * FROM teacher WHERE id = ? AND password = ?";
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, id);
-            pstmt.setString(2, password);
+            statement = connection.prepareStatement(sql);
+            statement.setString(1, id);
+            statement.setString(2, password);
 
-            rSet = pstmt.executeQuery();
+            rSet = statement.executeQuery();
 
             if (rSet.next()) {
                 teacher = new Teacher();
@@ -98,16 +97,16 @@ public class TeacherDao extends Dao {
                     e.printStackTrace();
                 }
             }
-            if (pstmt != null) {
+            if (statement != null) {
                 try {
-                    pstmt.close();
+                    statement.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
             }
-            if (conn != null) {
+            if (connection != null) {
                 try {
-                    conn.close();
+                    connection.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
