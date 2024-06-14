@@ -25,11 +25,12 @@ public class TeacherDao extends Dao {
             if (rSet.next()) {
                 teacher = new Teacher();
                 teacher.setId(rSet.getString("id"));
-                teacher.setPassword(rSet.getString("cd"));
+                teacher.setPassword(rSet.getString("password"));
                 teacher.setName(rSet.getString("name"));
 
                 // Schoolのインスタンスを作成または取得
                 School school = new School();
+                school.setCd(rSet.getString("school_cd"));
                 teacher.setSchool(school);
             }
         } catch (SQLException e) {
