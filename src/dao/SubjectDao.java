@@ -69,7 +69,7 @@ public class SubjectDao extends Dao {
         //リザルトセット
         ResultSet rSet = null;
         //SQL文のソート
-        String order = "ORDER BY no ASC";
+        String order = "ORDER BY cd ASC";
 
 
         try {

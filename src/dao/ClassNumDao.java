@@ -20,7 +20,7 @@ public class ClassNumDao extends Dao{
         //リザルトセット
         ResultSet rSet = null;
         //SQL文の条件
-        String order = "ORDER BY no ASC";
+        String order = "ORDER BY class_num ASC";
 
         try{
             //プリペアードステートメントにSQL文をセット
