@@ -297,12 +297,11 @@ public class StudentDao extends Dao{
                     "UPDATE student SET name=?, ent_tear=?, class_num=?,is_attend=? WHERE no=?"
                 );
                 //プリペアードステートメントに値をバインド
-                statement.setString(1,student.getNo());
-                statement.setString(2,student.getName());
-                statement.setInt(3,student.getEntYear());
-                statement.setString(4,student.getClassNum());
-                statement.setBoolean(5,student.isAttend());
-                statement.setString(6,student.getSchool().getCd());
+                statement.setString(1,student.getName());
+                statement.setInt(2,student.getEntYear());
+                statement.setString(3,student.getClassNum());
+                statement.setBoolean(4,student.isAttend());
+                statement.setString(5,student.getNo());
             }
             //プリペアードステートメントを実行
             count = statement.executeUpdate();
