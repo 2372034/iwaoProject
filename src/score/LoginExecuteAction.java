@@ -25,8 +25,8 @@ public class LoginExecuteAction extends Action {
         try {
             Teacher teacher = teacherDao.login(id, password);
             if (teacher != null) {
-                request.getSession().setAttribute("teacher", teacher);
-                response.sendRedirect(request.getContextPath() + "/index.jsp");
+                request.getSession().setAttribute("user", teacher);
+                response.sendRedirect(request.getContextPath() + "/score/index.jsp");
             } else {
                 request.setAttribute("error", "Invalid ID or password");
                 request.getRequestDispatcher("/login.jsp").forward(request, response);
