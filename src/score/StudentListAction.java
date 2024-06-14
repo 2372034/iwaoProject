@@ -49,7 +49,7 @@ public class StudentListAction extends Action {
 		} else if (entYear != 0 && classNum.equals("0")) {
 		    // 入学年度のみ指定
 		    Students = sDao.filter(teacher.getSchool(), entYear, isAttend);
-		} else if (entYear == 0 && (classNum == null || entYear == 0 && classNum.equals("0"))) {
+		} else if (entYear == 0 && classNum == null || entYear == 0 && classNum.equals("0")) {
 		    // 指定なしの場合
 		    // 全学生情報を取得
 		    Students = sDao.filter(teacher.getSchool(), isAttend);
@@ -92,6 +92,6 @@ public class StudentListAction extends Action {
 		// リクエストにデータをセット
 		request.setAttribute("class_num_set", list);
 		request.setAttribute("ent_year_set", entYearSet);
-		request.getRequestDispatcher( "student_list.jsp");
+		request.getRequestDispatcher( "student_list.jsp").forward(request,response);
 	}
 }
