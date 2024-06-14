@@ -4,7 +4,7 @@
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 <%@include file="../header.jsp" %>
 <form action="LoginExecute.action" method="post" class="login-form">
-<c:if test="${user != null}">
+<c:if test="${not empty error}">
     <p>ログインに失敗しました。IDまたはパスワードが正しくありません。</p>
 </c:if>
 <h2>ログイン</h2>

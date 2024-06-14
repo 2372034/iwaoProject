@@ -5,7 +5,7 @@
 <div class="global-navi" style="border-right: 2px solid black; flex: 0 0 15%;">
     <nav>
         <ul>
-            <li><a href="#">メニュー</a></li>
+            <li><a href="/iwaoProject/score/index.jsp">メニュー</a></li>
             <li><a href="/iwaoProject/score/StudentList.action">学生管理</a></li>
             <li>
                 <label>成績管理</label>
