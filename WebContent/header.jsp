@@ -10,6 +10,6 @@
     <h1>得点管理システム
     <c:if test="${not empty sessionScope.user}">
         <span class="header_content1">${sessionScope.user.name}様</span>
-        <a class="header_content2" href="logout.jsp">ログアウト</a>
+        <a class="header_content2" href="/iwaoProject/score/Logout.action">ログアウト</a>
     </c:if>
 </h1>
