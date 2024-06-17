@@ -112,13 +112,13 @@ public class StudentDao extends Dao{
         //SQL文の条件
         String condition = "AND ent_year=? AND class_num=?";
         //SQL文のソート
-        String order = "ORDER BY no ASC";
+        String order = " ORDER BY no ASC";
 
         //SQL文の在学フラグ条件
         String conditionIsAttend = "";
         //在学フラグがtrueの場合
         if(isAttend){
-            conditionIsAttend = "AND is_attend=ture";
+            conditionIsAttend = "AND is_attend=true";
         }
 
         try{
@@ -170,13 +170,13 @@ public class StudentDao extends Dao{
         //SQL文の条件
         String condition = "AND ent_year=?";
         //SQL文のソート
-        String order = "ORDER BY no ASC";
+        String order = " ORDER BY no ASC";
 
         //SQL文の在学フラグ条件
         String conditionIsAttend = "";
         //在学フラグがtrueの場合
         if(isAttend){
-            conditionIsAttend = "AND is_attend=ture";
+            conditionIsAttend = "AND is_attend=true";
         }
 
         try{
@@ -225,7 +225,7 @@ public class StudentDao extends Dao{
         //リザルトセット
         ResultSet rSet = null;
         //SQL文の条件
-        String order = "ORDER BY no ASC";
+        String order = " ORDER BY no ASC";
 
         //SQL文の在学フラグ
         String conditionIsAttend = "";
