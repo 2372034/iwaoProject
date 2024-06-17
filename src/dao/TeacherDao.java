@@ -85,6 +85,7 @@ public class TeacherDao extends Dao {
 
                 // Schoolのインスタンスを作成または取得
                 School school = new School();
+                school.setCd(rSet.getString("school_cd"));
                 teacher.setSchool(school);
             }
         } catch (SQLException e) {
