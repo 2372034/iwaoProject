@@ -41,7 +41,24 @@ public class StudentListAction extends Action {
 		classNum=request.getParameter("f2");
 		isAttendStr=request.getParameter("f3");
 
+		System.out.println(entYearStr);
+		System.out.println(classNum);
+		System.out.println(isAttendStr);
+
 		List<String> list = cNumDao.filter(teacher.getSchool());
+
+		if (entYearStr != null) {
+		    // 数値に変換
+		    entYear = Integer.parseInt(entYearStr);
+		}
+
+		// 在学フラグが送信されていた場合
+		if (isAttendStr != null) {
+		    // 在学フラグを立てる
+		    isAttend = true;
+		    // リクエストに在学フラグをセット
+		    request.setAttribute("f3", isAttendStr);
+		}
 
 		if (entYear != 0 && !classNum.equals("0")) {
 		    // 入学年度とクラス番号を指定
@@ -60,11 +77,6 @@ public class StudentListAction extends Action {
 		    Students = sDao.filter(teacher.getSchool(), isAttend);
 		}
 
-		if (entYearStr != null) {
-		    // 数値に変換
-		    entYear = Integer.parseInt(entYearStr);
-		}
-
 		// リストを初期化
 		List<Integer> entYearSet = new ArrayList<>();
 
@@ -77,14 +89,6 @@ public class StudentListAction extends Action {
 
 		// リクエストにクラス番号をセット
 		request.setAttribute("f2", classNum);
-
-		// 在学フラグが送信されていた場合
-		if (isAttendStr != null) {
-		    // 在学フラグを立てる
-		    isAttend = true;
-		    // リクエストに在学フラグをセット
-		    request.setAttribute("f3", isAttendStr);
-		}
 
 		// リクエストに学生リストをセット
 		request.setAttribute("students", Students);
