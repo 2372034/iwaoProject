@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import bean.Student;
-import dao.StudentDAO;
+import dao.StudentDao;
 import tool.Action;
 
 public class StudentCreateExecuteAction extends Action {
@@ -12,10 +12,10 @@ public class StudentCreateExecuteAction extends Action {
         HttpServletRequest request, HttpServletResponse response
     ) throws Exception {
         // ユーザーからの入力値を受け取る
-        int entYear = Integer.parseInt(request.getParameter("entYear"));
-        int no = Integer.parseInt(request.getParameter("no"));
-        String name = request.getParameter("name");
-        String classNum = request.getParameter("classNum");
+        int entYear = Integer.parseInt(request.getParameter("ent_year	")); // 入学年度
+        String no = request.getParameter("no"); // 学生番号
+        String name = request.getParameter("name"); // 氏名
+        String classNum = request.getParameter("class_num"); // クラス
 
         // Studentビーンに設定
         Student student = new Student();
@@ -25,18 +25,18 @@ public class StudentCreateExecuteAction extends Action {
         student.setClassNum(classNum);
 
         // StudentDAOインスタンスを生成
-        StudentDAO dao = new StudentDAO();
-        // StudentDAOのinsertメソッドを実行してデータベースに登録
-        boolean isSuccess = dao.save(student);
+        StudentDao dao = new StudentDao();
+        // StudentDAOのsaveメソッドを実行してデータベースに登録
+        boolean count = dao.save(student);
 
         // 登録成功かどうかでメッセージを設定
-        if (isSuccess) {
+        if (count) {
             request.setAttribute("message", "登録しました");
         } else {
             request.setAttribute("message", "登録に失敗しました");
         }
 
         // フォワード先のJSPに遷移
-        request.getRequestDispatcher("student_completion_of_registration.jsp").forward(request, response);
+        request.getRequestDispatcher("/score/student_completion_of_registration.jsp").forward(request, response);
     }
 }

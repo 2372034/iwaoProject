@@ -1,12 +1,8 @@
 package score;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import bean.Student;
-import dao.StudentDAO;
 import tool.Action;
 
 public class StudentCreateAction extends Action {
@@ -14,12 +10,14 @@ public class StudentCreateAction extends Action {
         HttpServletRequest request, HttpServletResponse response
     ) throws Exception {
 
-        // 学生情報を取得
-        StudentDAO dao = new StudentDAO();
-        List<Student> studentList = dao.studentAll();
-        request.setAttribute("studentList", studentList);
+//        // 学生情報を取得
+//        StudentDao dao = new StudentDao();
+//        List<Student> studentList = dao.filter(new School(), true);
+//
+//        // 学生リストをリクエストに設定
+//        request.setAttribute("studentList", studentList);
 
         // JSPへのフォワード
-        request.getRequestDispatcher("student_registration.jsp").forward(request, response);
+        request.getRequestDispatcher("/score/student_registration.jsp").forward(request, response);
     }
 }
