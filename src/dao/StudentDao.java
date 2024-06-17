@@ -43,7 +43,7 @@ public class StudentDao extends Dao{
                 student.setName(rSet.getString("name"));
                 student.setEntYear(rSet.getInt("ent_year"));
                 student.setClassNum(rSet.getString("class_num"));
-                student.setAttend(rSet.getBoolean("is_attend"));
+                student.setIsAttend(rSet.getBoolean("is_attend"));
                 //学校フィールドには学校コードで検索した学校インスタンスをセット
                 student.setSchool(schoolDao.get(rSet.getString("school_cd")));
             }else{
@@ -88,7 +88,7 @@ public class StudentDao extends Dao{
                 student.setName(rSet.getString("name"));
                 student.setEntYear(rSet.getInt("ent_year"));
                 student.setClassNum(rSet.getString("class_num"));
-                student.setAttend(rSet.getBoolean("is_attend"));
+                student.setIsAttend(rSet.getBoolean("is_attend"));
                 student.setSchool(school);
                  //リストに追加
                 list.add(student);
@@ -288,7 +288,7 @@ public class StudentDao extends Dao{
                     statement.setString(2,student.getName());
                     statement.setInt(3,student.getEntYear());
                     statement.setString(4,student.getClassNum());
-                    statement.setBoolean(5,student.isAttend());
+                    statement.setBoolean(5,student.getIsAttend());
                     statement.setString(6,student.getSchool().getCd());
             }else{
                 //学生が存在した場合
@@ -300,7 +300,7 @@ public class StudentDao extends Dao{
                 statement.setString(1,student.getName());
                 statement.setInt(2,student.getEntYear());
                 statement.setString(3,student.getClassNum());
-                statement.setBoolean(4,student.isAttend());
+                statement.setBoolean(4,student.getIsAttend());
                 statement.setString(5,student.getNo());
             }
             //プリペアードステートメントを実行
