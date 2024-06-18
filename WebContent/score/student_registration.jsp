@@ -1,33 +1,10 @@
 <%@page contentType="text/html; charset=UTF-8" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
  <%@include file="../header.jsp" %>
- <link rel="stylesheet" type="text/css" href="../css/style.css">
-
-<div class="global-navi" style="border-right: 2px solid black; flex: 0 0 15%;">
-    <nav>
-        <ul>
-            <li><a href="/iwaoProject/score/ToMainMenu.action">メニュー</a></li>
-            <li><a href="/iwaoProject/score/ToStudentList.action">学生管理</a></li>
-            <li>
-                <label>成績管理</label>
-                <ul>
-                    <li><a href="/iwaoProject/score/ToScoreRegister.action">成績登録</a></li>
-                    <li><a href="/iwaoProject/score/ToScoreView.action">成績参照</a></li>
-                </ul>
-            </li>
-            <li><a href="/iwaoProject/score/ToSubjectList.action">科目管理</a></li>
-        </ul>
-    </nav>
-</div>
- 
-<head>
-    <meta charset="UTF-8">
-    <title>学生情報登録</title>
-</head>
-<body>
-
-    <div class="container">
-        <h2>学生情報登録</h2>
+ <div class="container">
+ <%@include file="menu.jsp" %>
+ <div class="subject_content">
+     <h2>学生情報登録</h2>
         <form action="/path/to/submit" method="POST">
    
                 <label for="grade">入学年度</label>
@@ -57,9 +34,8 @@
             <div class="form-group">
                 <button type="submit">登録して完了</button>
             </div>
-            <li><a href="/iwaoProject/score/ToMainMenu.action">戻る</a></li>
+            <a href="/iwaoProject/score/ToMainMenu.action">戻る</a>
         </form>
-    </div>
-</body>
-</html>
+     </div>
+</div>
 <%@include file="../footer.jsp" %>
