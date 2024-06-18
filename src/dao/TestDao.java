@@ -93,7 +93,7 @@ public class TestDao extends Dao {
         return list;
     }
 
-    public List<Test> filter(int entYear, String classNum, Subject subject, int num, School school) throws Exception {
+    public List<Test> filter(int entYear, String classNum, Subject subject, int no, School school) throws Exception {
         List<Test> list = new ArrayList<>();
         Connection connection = getConnection();
         PreparedStatement statement = null;
