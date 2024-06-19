@@ -225,3 +225,12 @@ input[type="submit"] {
     padding: 20px;
     width: 100%;
 }
+/* 成績一覧のスタイルここまで */
+
+/* 成績参照のスタイル */
+.iwao {
+    display: flex;
+}
+.search-form {
+	display:flex;
+}

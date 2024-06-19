@@ -5,25 +5,28 @@
 <%@include file="menu.jsp" %>
 <div class="subject_content">
 <h2>成績参照</h2>
-<div> 科目情報</div>
-<form id="search-form">
-<table>
-	<tr>	
-		<th>入学年度:</th>
-		<th>クラス</th>
-		<th>科目</th>
-	</tr>		
-	<tr>	
-		<td><select id="year" name="year"></select></td>
-		<td><select id="class" name="class"></select></td>
-		<td><select id="subject" name="subject"></select></td>
-	</tr>
-</table>
- 
-<button type="submit">検索</button>
+<div class="iwao">
+<div>科目情報</div>
+<form class="search-form">
+	<table>
+		<tr>	
+			<th>入学年度:</th>
+			<th>クラス</th>
+			<th>科目</th>
+		</tr>		
+		<tr>	
+			<td><select id="year" name="year"></select></td>
+			<td><select id="class" name="class"></select></td>
+			<td><select id="subject" name="subject"></select></td>
+		</tr>
+	</table>
+	<div class="btn-container">
+		<button type="submit">検索</button>
+	</div>
 </form>
+</div>
 <p>学生情報</p>
-<form id="search-form">
+<form class="search-form">
 <div>学生番号</div>
 <input type="text" id="admissionYear" name="admissionYear">
 <button type="submit">検索</button>
