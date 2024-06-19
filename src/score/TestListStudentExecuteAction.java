@@ -15,14 +15,17 @@ import bean.Teacher;
 import dao.ClassNumDao;
 import dao.StudentDao;
 import tool.Action;
-public class TestListAction extends Action{
+
+public class TestListStudentExecuteAction {
     public String execute(
-		HttpServletRequest request, HttpServletResponse response)throws Exception {
+		HttpServletRequest request, HttpServletResponse response
+	)throws Exception {
         //セッションのユーザーデータを取得
+
 
         // ただのページ遷移のため、フォワードするのみ
 		// FrontControllerを使用しているためreturn文でフォワードできる
-		return "test_list.jsp";
+		return "test_list_student.jsp";
     }
     
 }
