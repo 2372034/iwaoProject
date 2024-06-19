@@ -22,6 +22,7 @@ public class StudentUpdateExecuteAction extends Action {
         String no = request.getParameter("no"); // 学生番号
         String name = request.getParameter("name"); // 氏名
         String classNum = request.getParameter("class_num"); // クラス
+        boolean isAttend = request.getParameter("si_attend") != null;
 
         // Studentインスタンスを作成し、取得したパラメータをセット
         Student student = new Student();
@@ -29,7 +30,7 @@ public class StudentUpdateExecuteAction extends Action {
         student.setName(name);
         student.setEntYear(entYear);
         student.setClassNum(classNum);
-        student.setIsAttend(true);
+        student.setIsAttend(isAttend);
         student.setSchool(school); // Schoolを設定
 
         // StudentDAOを使用してデータベースを更新

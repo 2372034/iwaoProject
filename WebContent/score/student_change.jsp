@@ -22,8 +22,8 @@
                     <option value="102">102</option>
                     <option value="103">103</option>
                 </select>
-            <label for="class">在学中</label>
-            <input type="checkbox" name="si_attend" value="true">
+            <label for="si_attend">在学中</label>
+            <input type="checkbox" name="si_attend" value="true" ${student.isAttend ? 'checked' : ''}>
                 <button type="submit">変更</button>
             <a href="/iwaoProject/score/ToMainMenu.action">戻る</a>
 		</form>
