@@ -25,7 +25,7 @@
             <label for="si_attend">在学中</label>
             <input type="checkbox" name="si_attend" value="true" ${student.isAttend ? 'checked' : ''}>
                 <button type="submit">変更</button>
-            <a href="/iwaoProject/score/ToMainMenu.action">戻る</a>
+            <a href="/iwaoProject/score/StudentList.action">戻る</a>
 		</form>
 		</div>
 	</div>

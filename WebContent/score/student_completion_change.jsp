@@ -7,8 +7,8 @@
 <h2>学生情報変更</h2>
 <div class="form-group">
 <p>登録が完了しました</p>
-<a href="/iwaoProject/score/ToStudentList.action">学生一覧</a>
+<a href="/iwaoProject/score/StudentList.action">学生一覧</a>
 		</div>
-	</div>  
+	</div>
 </div>
 <%@include file="../footer.jsp" %>
