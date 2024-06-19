@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@include file="../header.jsp" %>
 <div class="container">
- <%@include file="menu.jsp" %>
+<%@include file="menu.jsp" %>
 <div class="subject_content">
 <h2>成績参照</h2>
 <div> 科目情報</div>

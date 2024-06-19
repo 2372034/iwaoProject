@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../header.jsp" %>
+<div class="container">
  <%@include file="menu.jsp" %>
-           <h2>学生情報変更</h2>
+ <div class="subject_content">
+<h2>学生情報変更</h2>
 <div class="form-group">
-                     <p>登録が完了しました</p>
-                     <a href="/iwaoProject/score/ToStudentList.action">学生一覧</a>
-                </div>
+<p>登録が完了しました</p>
+<a href="/iwaoProject/score/ToStudentList.action">学生一覧</a>
+		</div>
+	</div>  
+</div>
 <%@include file="../footer.jsp" %>
