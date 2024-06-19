@@ -106,7 +106,7 @@ public class TestDao extends Dao {
             statement.setString(2, classNum);
             statement.setString(3, subject.getCd());
             statement.setString(4, school.getCd());
-            statement.setInt(5, num);
+            statement.setInt(5, no);
             rSet = statement.executeQuery();
 
             list = postFilter(rSet, school);
