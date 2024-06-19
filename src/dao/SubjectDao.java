@@ -59,7 +59,7 @@ public class SubjectDao extends Dao {
 
     //学校を指定して科目の一覧を取得するメソッド
     @SuppressWarnings("unused")
-	private List<Subject> filter(School school) throws Exception {
+	public List<Subject> filter(School school) throws Exception {
         //リストの初期化
         List<Subject> list = new ArrayList<>();
         //コネクションを確立
