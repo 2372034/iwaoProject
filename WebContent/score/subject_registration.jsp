@@ -5,7 +5,7 @@
 <%@include file="menu.jsp" %>
 <div class="subject_content">
 <h2>科目情報登録</h2>
-<form id="subjectForm">
+<form action="SubjectCreateExecute.action" method="post">
 <label for="subjectCode">科目コード</label>
 <input type="text" id="subjectCode" name="cd" required>
 <ul id="errorMessages" class="error"></ul>
