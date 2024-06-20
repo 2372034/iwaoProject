@@ -7,8 +7,8 @@
            <h2>科目情報登録</h2>
 <div class="form-group">
               <p>登録が完了しました</p>
-              <a href="/iwaoProject/score/ToMainMenu.action">戻る</a>
-              <a href="/iwaoProject/score/ToStudentList.action">科目一覧</a>
+              <a href="/iwaoProject/score/SubjectCreate.action">戻る</a>
+              <a href="/iwaoProject/score/SubjectList.action">科目一覧</a>
 		</div>
 	</div>
 </div>

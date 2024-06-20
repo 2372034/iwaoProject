@@ -8,7 +8,7 @@
 <div class="student_list_content">
 	<h2>科目管理</h2>
 	<div class="new_create">
-		<a href="StudentCreate.action">新規登録</a>
+		<a href="SubjectCreate.action">新規登録</a>
 	</div>
 	<table class="table table-hover">
 		<tr>

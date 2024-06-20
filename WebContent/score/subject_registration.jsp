@@ -7,13 +7,13 @@
 <h2>科目情報登録</h2>
 <form id="subjectForm">
 <label for="subjectCode">科目コード</label>
-<input type="text" id="subjectCode" name="subjectCode" required><br><br>
+<input type="text" id="subjectCode" name="cd" required>
 <ul id="errorMessages" class="error"></ul>
 <label for="subjectName">科目名</label>
-<input type="text" id="subjectName" name="subjectName" required><br><br>
+<input type="text" id="subjectName" name="name" required>
 <ul id="errorMessages" class="error"></ul>
-<button type="submit">登録</button>
-<a href="/iwaoProject/score/ToMainMenu.action">戻る</a>
+<input type="submit" value="登録">
+<a href="/iwaoProject/score/SubjectList.action">戻る</a>
 </form>
 </div>
 </div>
