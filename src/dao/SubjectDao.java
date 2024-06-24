@@ -14,31 +14,29 @@ public class SubjectDao extends Dao {
 
     // 引数に科目コード(cd)と教員が所属している学校(school)を与えると科目を返すgetメソッド
     public Subject get(String cd, School school) throws Exception {
-        //科目インスタンスを初期化
         Subject subject = new Subject();
-        //データベースへのコネクションを確立
         Connection connection = getConnection();
-        //プリペアドステートメント
         PreparedStatement statement = null;
 
         try {
-            //プリペアードステートメントにSQL文をセット
-            statement = connection.prepareStatement("SELECT * FROM subject WHERE cd=?");
-            //プリペアードステートメントに学生番号をバインド
-            statement.setString(1, cd);
-            //プリペアードステートメントを実行
-            ResultSet rSet = statement.executeQuery();
+            // SQLクエリを準備
+            statement = connection.prepareStatement("SELECT * FROM subject WHERE cd=? AND school_cd=?");
+            statement.setString(1, cd); // 科目コードを設定
+            statement.setString(2, school.getCd()); // 学校コードを設定
+            ResultSet rSet = statement.executeQuery(); // クエリを実行
 
+            // 結果セットからデータを取得
             if (rSet.next()) {
-                subject.setCd(rSet.getString("cd"));
-                subject.setName(rSet.getString("name"));
-                subject.setSchool(school);
+                subject.setCd(rSet.getString("cd")); // 科目コードを設定
+                subject.setName(rSet.getString("name")); // 科目名を設定
+                subject.setSchool(school); // 学校オブジェクトを設定
             } else {
-                subject = null;
+                subject = null; // 科目が見つからない場合はnullを返す
             }
         } catch (Exception e) {
-            throw e;
+            throw e; // 例外をスロー
         } finally {
+            // リソースをクローズ
             if (statement != null) {
                 try {
                     statement.close();
@@ -54,88 +52,82 @@ public class SubjectDao extends Dao {
                 }
             }
         }
-        return subject;
+        return subject; // 科目オブジェクトを返す
     }
 
-    //学校を指定して科目の一覧を取得するメソッド
-    @SuppressWarnings("unused")
-	public List<Subject> filter(School school) throws Exception {
-        //リストの初期化
+    // 学校を指定して科目の一覧を取得するメソッド
+    public List<Subject> filter(School school) throws Exception {
         List<Subject> list = new ArrayList<>();
-        //コネクションを確立
         Connection connection = getConnection();
-        //プリペアドステートメント
         PreparedStatement statement = null;
-        //リザルトセット
         ResultSet rSet = null;
-        //SQL文のソート
-        String order = "ORDER BY cd ASC";
-
+        String order = "ORDER BY cd ASC"; // 科目コードで昇順にソート
 
         try {
-            //プリペアードステートメントにSQL文をセット
+            // SQLクエリを準備
             statement = connection.prepareStatement("SELECT * FROM subject WHERE school_cd=?" + order);
-            //プリペアードステートメントに学校コードをバインド
-            statement.setString(1, school.getCd());
-            rSet = statement.executeQuery();
-            //リストへの格納処理を実行
+            statement.setString(1, school.getCd()); // 学校コードを設定
+            rSet = statement.executeQuery(); // クエリを実行
+
+            // 結果セットからデータを取得
             while (rSet.next()) {
                 Subject subject = new Subject();
-                subject.setCd(rSet.getString("cd"));
-                subject.setName(rSet.getString("name"));
-                subject.setSchool(school);
-                list.add(subject);
+                subject.setCd(rSet.getString("cd")); // 科目コードを設定
+                subject.setName(rSet.getString("name")); // 科目名を設定
+                subject.setSchool(school); // 学校オブジェクトを設定
+                list.add(subject); // リストに追加
             }
         } catch (Exception e) {
-            throw e;
+            throw e; // 例外をスロー
         } finally {
-            //プリペアードステートメントを閉じる
+            // リソースをクローズ
             if (statement != null) {
-                try{
+                try {
                     statement.close();
-                }catch (SQLException sqle){
+                } catch (SQLException sqle) {
                     throw sqle;
                 }
             }
-            //コネクションを閉じる
             if (connection != null) {
-                try{
+                try {
                     connection.close();
-                }catch (SQLException sqle){
+                } catch (SQLException sqle) {
                     throw sqle;
                 }
             }
         }
-        return list;
+        return list; // 科目リストを返す
     }
 
-    //saveメソッド
-    //科目インスタンスをデータベースに保存するメソッド。科目登録、または科目変更、削除の処理で利用する。
-    //データが存在する場合は更新、存在しない場合は登録し、戻り値として登録した情報が1件以上あればtrueを、なければfalseを戻す
+    // 科目を保存するメソッド
     public boolean save(Subject subject) throws Exception {
         Connection connection = getConnection();
         PreparedStatement statement = null;
         int count = 0;
 
         try {
+            // 既存の科目を取得
             Subject old = get(subject.getCd(), subject.getschool());
             if (old == null) {
+                // 新規科目を挿入
                 statement = connection.prepareStatement(
                         "INSERT INTO subject (cd, name, school_cd) VALUES (?, ?, ?)");
-                statement.setString(1, subject.getCd());
-                statement.setString(2, subject.getName());
-                statement.setString(3, subject.getschool().getCd());
+                statement.setString(1, subject.getCd()); // 科目コードを設定
+                statement.setString(2, subject.getName()); // 科目名を設定
+                statement.setString(3, subject.getschool().getCd()); // 学校コードを設定
             } else {
+                // 既存の科目を更新
                 statement = connection.prepareStatement(
                         "UPDATE subject SET name=?, school_cd=? WHERE cd=?");
-                statement.setString(1, subject.getCd());
-                statement.setString(2, subject.getName());
-                statement.setString(3, subject.getschool().getCd());
+                statement.setString(1, subject.getName()); // 科目名を設定
+                statement.setString(2, subject.getschool().getCd()); // 学校コードを設定
+                statement.setString(3, subject.getCd()); // 科目コードを設定
             }
-            count = statement.executeUpdate();
+            count = statement.executeUpdate(); // クエリを実行
         } catch (Exception e) {
-            throw e;
+            throw e; // 例外をスロー
         } finally {
+            // リソースをクローズ
             if (statement != null) {
                 try {
                     statement.close();
@@ -151,22 +143,25 @@ public class SubjectDao extends Dao {
                 }
             }
         }
-        return count > 0;
+        return count > 0; // 更新が成功したかどうかを返す
     }
 
+    // 科目を削除するメソッド
     public boolean delete(Subject subject) throws Exception {
         Connection connection = getConnection();
         PreparedStatement statement = null;
         int count = 0;
 
         try {
-            statement = connection.prepareStatement(
-                    "DELETE FROM subject WHERE cd=?");
-            statement.setString(1, subject.getCd());
-            count = statement.executeUpdate();
+            // SQLクエリを準備
+            statement = connection.prepareStatement("DELETE FROM subject WHERE cd=? AND school_cd=?");
+            statement.setString(1, subject.getCd()); // 科目コードを設定
+            statement.setString(2, subject.getschool().getCd()); // 学校コードを設定
+            count = statement.executeUpdate(); // クエリを実行
         } catch (Exception e) {
-            throw e;
+            throw e; // 例外をスロー
         } finally {
+            // リソースをクローズ
             if (statement != null) {
                 try {
                     statement.close();
@@ -182,6 +177,6 @@ public class SubjectDao extends Dao {
                 }
             }
         }
-        return count > 0;
+        return count > 0; // 削除が成功したかどうかを返す
     }
 }
