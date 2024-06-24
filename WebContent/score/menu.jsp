@@ -11,7 +11,7 @@
                 <label>成績管理</label>
                 <ul>
                     <li><a href="#">成績登録</a></li>
-                    <li><a href="#">成績参照</a></li>
+                    <li><a href="/iwaoProject/score/TestList.action">成績参照</a></li>
                 </ul>
             </li>
             <li><a href="#">科目管理</a></li>
