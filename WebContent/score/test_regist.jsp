@@ -35,7 +35,7 @@
 				<label>入学年度</label>
 				<select class="form-select" id="test_regist-entYearSet-select" name="entYearSet">
 					<option value="0">--------</option>
-					<c:forEach var="year" items="${entYearSet}">
+					<c:forEach var="year" items="${f1}">
 						<option value="${year}" <c:if test="${year == entYearSet}">selected</c:if>>${year}</option>
 					</c:forEach>
 				</select>
@@ -73,7 +73,7 @@
 			<div class="mt-2 text-warning">${errors.get("f1")}</div>
 		</div>
 	</form>
-			
+
 </div>
 </div>
 <%@include file="../footer.jsp" %>

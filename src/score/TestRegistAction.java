@@ -1,5 +1,5 @@
 package score;
-//
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import bean.School;
+import bean.Subject;
 import bean.Teacher;
 import bean.Test;
 import dao.ClassNumDao;
@@ -20,72 +20,80 @@ import dao.TestDao;
 import tool.Action;
 
 public class TestRegistAction extends Action {
-	//セッションからユーザーデータを取得
-	public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		HttpSession session=request.getSession();
-		Teacher teacher=(Teacher)session.getAttribute("user");
-		
+    // セッションからユーザーデータを取得
+    public void execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        HttpSession session = request.getSession();
+        Teacher teacher = (Teacher) session.getAttribute("user");
 
-		//セッションのユーザーデータから、ユーザーが所属している学校のクラスデータを取得
-		String entYearStr=""; //入力された入学年度
-		String classNum=""; //入力されたクラス番号
-		String subjectStr="";//入力された科目
-		String NoStr="";//入力された回数
-		int entYear = 0; //入学年度
-		int No = 0;
-		List<Test> Tests=null; //成績リスト
-		LocalDate todaysDate=LocalDate.now(); //LocalDaoインスタンスを取得
-		int Year=todaysDate.getYear(); //現在の年を取得
-		StudentDao sDao=new StudentDao();
-		ClassNumDao cNumDao=new ClassNumDao(); //クラス番号Daoの初期化
-		SubjectDao subDao=new SubjectDao();
-		TestDao testDao=new TestDao(); //テストDao
-		Map<String,String> errors=new HashMap<>(); //エラーメッセージ
+        // セッションのユーザーデータから、ユーザーが所属している学校のクラスデータを取得
+        String entYearStr = request.getParameter("f1"); // 入力された入学年度
+        String classNum = request.getParameter("f2"); // 入力されたクラス番号
+        String subjectStr = request.getParameter("f3"); // 入力された科目
+        String NoStr = request.getParameter("f4"); // 入力された回数
+        int entYear = 0; // 入学年度
+        int No = 0; // 回数
+        LocalDate todaysDate = LocalDate.now(); // LocalDateインスタンスを取得
+        int year = todaysDate.getYear(); // 現在の年を取得
+        StudentDao sDao = new StudentDao();
+        ClassNumDao cNumDao = new ClassNumDao(); // クラス番号Daoの初期化
+        SubjectDao subDao = new SubjectDao();
+        TestDao testDao = new TestDao(); // テストDao
+        Map<String, String> errors = new HashMap<>(); // エラーメッセージ
 
+        // 入力のバリデーションと変換
+        try {
+            if (entYearStr != null && !entYearStr.isEmpty()) {
+                entYear = Integer.parseInt(entYearStr);
+            }
+        } catch (NumberFormatException e) {
+            errors.put("f1", "入学年度は整数で入力してください。");
+        }
 
-		//リクエストパラメータの取得
-		entYearStr=request.getParameter("f1");
-		classNum=request.getParameter("f2");
-		subjectStr=request.getParameter("f3");
-		NoStr=request.getParameter("f4");
+        try {
+            if (NoStr != null && !NoStr.isEmpty()) {
+                No = Integer.parseInt(NoStr);
+            }
+        } catch (NumberFormatException e) {
+            errors.put("f4", "回数は整数で入力してください。");
+        }
 
-		System.out.println(entYearStr);
-		System.out.println(classNum);
-		System.out.println(subjectStr);
-		System.out.println(NoStr);
+        List<String> cNumList = new ArrayList<>();
+        List<Subject> subList = new ArrayList<>();
+        List<Test> tests = new ArrayList<>();
 
-		//DBからデータ取得
-		//ログインユーザーの学校コードをもとにクラス番号の一覧を取得
-		List<String> cNumlist = cNumDao.filter(teacher.getSchool());
-		List<String> sublist = subDao.filter(teacher.getSchool());
-		
+        if (errors.isEmpty()) {
+            // DBからデータ取得
+            // ログインユーザーの学校コードをもとにクラス番号の一覧を取得
+            cNumList = cNumDao.filter(teacher.getSchool());
+            subList = subDao.filter(teacher.getSchool());
 
-		
+            // 成績リストを取得
+            tests = testDao.filter(entYear, classNum, subjectStr, No, teacher.getSchool());
 
-		// リストを初期化
-		List<Integer> entYearSet = new ArrayList<>();
+            // リクエストに学生リストをセット
+            request.setAttribute("students", tests);
+        } else {
+            // エラーメッセージをリクエストにセット
+            request.setAttribute("errors", errors);
+        }
 
-		// 10年前から1年後まで年をリストに追加
-		for (int i = Year - 10; i < Year + 1; i++) {
-		    entYearSet.add(i);
-		}
+        // リストを初期化
+        List<Integer> entYearSet = new ArrayList<>();
+        // 10年前から現在までの年をリストに追加
+        for (int i = year - 10; i <= year; i++) {
+            entYearSet.add(i);
+        }
 
-		request.setAttribute("f1", entYear);
+        // リクエストにデータをセット
+        request.setAttribute("f1", entYearStr);
+        request.setAttribute("f2", classNum);
+        request.setAttribute("f3", subjectStr);
+        request.setAttribute("f4", NoStr);
+        request.setAttribute("ent_year_set", entYearSet);
+        request.setAttribute("class_num_set", cNumList);
+        request.setAttribute("subject_set", subList);
 
-		// リクエストにクラス番号をセット
-		request.setAttribute("f2", classNum);
-
-		request.setAttribute("f3", subjectName);
-
-		request.setAttribute("f4", subjectNo);
-
-		// リクエストに学生リストをセット
-		request.setAttribute("students", Tests);
-
-		// リクエストにデータをセット
-		request.setAttribute("class_num_set", list);
-		request.setAttribute("ent_year_set", entYearSet);
-		request.getRequestDispatcher( "student_list.jsp").forward(request,response);
-	}
-
+        // JSPにフォワード
+        request.getRequestDispatcher("/score/test_regist.jsp").forward(request, response);
+    }
 }

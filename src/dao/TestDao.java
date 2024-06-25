@@ -13,8 +13,11 @@ import bean.Subject;
 import bean.Test;
 
 public class TestDao extends Dao {
+
+    // 特定の条件でテストを取得するための基本SQLクエリ
     private String baseSql = "SELECT * FROM test WHERE student_no=? AND subject_cd=? AND school_cd=? AND no=?";
 
+    // 特定のTestオブジェクトをデータベースから取得するメソッド
     public Test get(Student student, Subject subject, School school, int no) throws Exception {
         Test test = null;
         Connection connection = getConnection();
@@ -22,6 +25,7 @@ public class TestDao extends Dao {
         ResultSet rSet = null;
 
         try {
+            // SQLステートメントを準備して実行
             statement = connection.prepareStatement(baseSql);
             statement.setString(1, student.getNo());
             statement.setString(2, subject.getCd());
@@ -29,6 +33,7 @@ public class TestDao extends Dao {
             statement.setInt(4, no);
             rSet = statement.executeQuery();
 
+            // 結果が見つかった場合、Testオブジェクトを作成してデータを設定
             if (rSet.next()) {
                 test = new Test();
                 test.setStudent(student);
@@ -41,6 +46,7 @@ public class TestDao extends Dao {
         } catch (SQLException e) {
             throw new Exception("テストデータの取得中にエラーが発生しました", e);
         } finally {
+            // リソースを閉じる
             if (rSet != null) {
                 try {
                     rSet.close();
@@ -67,6 +73,7 @@ public class TestDao extends Dao {
         return test;
     }
 
+    // 結果セットからテストデータをリストに変換するヘルパーメソッド
     private List<Test> postFilter(ResultSet rSet, School school) throws Exception {
         List<Test> list = new ArrayList<>();
         try {
@@ -93,6 +100,7 @@ public class TestDao extends Dao {
         return list;
     }
 
+    // フィルタリングされたテストデータを取得するメソッド
     public List<Test> filter(int entYear, String classNum, Subject subject, int no, School school) throws Exception {
         List<Test> list = new ArrayList<>();
         Connection connection = getConnection();
@@ -100,6 +108,7 @@ public class TestDao extends Dao {
         ResultSet rSet = null;
 
         try {
+            // SQLクエリを準備して実行
             String sql = "SELECT * FROM test WHERE ent_year=? AND class_num=? AND subject_cd=? AND school_cd=? AND no=?";
             statement = connection.prepareStatement(sql);
             statement.setInt(1, entYear);
@@ -109,10 +118,12 @@ public class TestDao extends Dao {
             statement.setInt(5, no);
             rSet = statement.executeQuery();
 
+            // 結果をリストに変換
             list = postFilter(rSet, school);
         } catch (SQLException e) {
             throw new Exception("テストデータのフィルタリング中にエラーが発生しました", e);
         } finally {
+            // リソースを閉じる
             if (rSet != null) {
                 try {
                     rSet.close();
@@ -139,6 +150,7 @@ public class TestDao extends Dao {
         return list;
     }
 
+    // リスト内のすべてのテストデータを保存するメソッド
     public boolean save(List<Test> list) throws Exception {
         boolean result = true;
         Connection connection = getConnection();
@@ -167,6 +179,7 @@ public class TestDao extends Dao {
         return result;
     }
 
+    // 単一のテストデータを保存するヘルパーメソッド
     private boolean save(Test test, Connection connection) throws Exception {
         boolean result = false;
         PreparedStatement statement = null;
@@ -197,6 +210,7 @@ public class TestDao extends Dao {
         return result;
     }
 
+    // リスト内のすべてのテストデータを削除するメソッド
     public boolean delete(List<Test> list) throws Exception {
         boolean result = true;
         Connection connection = getConnection();
@@ -225,6 +239,7 @@ public class TestDao extends Dao {
         return result;
     }
 
+    // 単一のテストデータを削除するヘルパーメソッド
     private boolean delete(Test test, Connection connection) throws Exception {
         boolean result = false;
         PreparedStatement statement = null;
@@ -253,4 +268,3 @@ public class TestDao extends Dao {
         return result;
     }
 }
-
