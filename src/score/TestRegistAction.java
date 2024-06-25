@@ -68,7 +68,7 @@ public class TestRegistAction extends Action {
             subList = subDao.filter(teacher.getSchool());
 
             // 成績リストを取得
-            tests = testDao.filter(entYear, classNum, subjectStr, No, teacher.getSchool());
+//            tests = testDao.filter(entYear, classNum, subjectStr, No, teacher.getSchool());
 
             // リクエストに学生リストをセット
             request.setAttribute("students", tests);
