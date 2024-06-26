@@ -56,7 +56,6 @@ input[type="submit"] {
 /* Container Flex Styles */
 .container {
     display: flex;
-    height: 100vh;
 }
 
 /* サイドバーのスタイル */
@@ -241,5 +240,5 @@ input[type="submit"] {
 #subjectreturn {
 	display: block;
 	margin-top: 10px;
-	
+
 }

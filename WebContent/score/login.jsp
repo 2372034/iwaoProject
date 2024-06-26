@@ -4,10 +4,12 @@
 <link rel="stylesheet" type="text/css" href="../css/style.css">
 <%@include file="../header.jsp" %>
 <form action="LoginExecute.action" method="post" class="login-form">
-<c:if test="${not empty error}">
-    <p>ログインに失敗しました。IDまたはパスワードが正しくありません。</p>
-</c:if>
 <h2>ログイン</h2>
+<c:if test="${not empty error}">
+	<ul>
+		<li>ログインに失敗しました。IDまたはパスワードが正しくありません。</li>
+	</ul>
+</c:if>
     <input type="text" name="id" placeholder="ID" maxlength="20" required >
     <input type="password" id="password" name="password" placeholder="パスワード" maxlength="20" required>
     <label for="chk_d_ps">
