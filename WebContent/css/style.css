@@ -226,34 +226,34 @@ input[type="submit"] {
     width: 100%;
 }
 
-.test_list_search {
-    display: flex;
-    justify-content: space-between; 
-}
-
-.test_list_student {
-    display: flex;
-    border-top:1px solid #ddd;
-    justify-content: space-around; 
-}
-
 .test_search_border{
     display: flex;
     border: 1px solid #ddd;
     border-radius: 10px;
 }
 
+.test_list_search {
+    display: flex;
+    justify-content:space-around; 
+}
+
+.test_list_student {
+    display: flex;
+    border-top:1px solid #ddd;
+}
+
 .col-2_test_list{
     display: flex;
     flex-direction: column;
-    margin: 20px 0px 20px 40px;
+    text-align:center;
+    margin: 20px 20px 20px 20px;
     width: 100px;
 }
 
 .col-2_button_TestList{
     display: flex;
     flex-direction: column;
-    margin:  20px 0px 20px 40px;
+    margin:  20px 40px 20px 40px;
     width: 60px;
 }
 
@@ -261,29 +261,33 @@ input[type="submit"] {
 .col-4_entYearSet{
     display: flex;
     flex-direction: column;
-    margin:  10px 5px 10px 5px;
+    margin:  10px 10px 10px 20px;
     width: 100px;
 }
 
 .col-4_classes{
     display: flex;
     flex-direction: column;
-    margin: 10px 5px 10px 5px;
+    margin: 10px 10px 10px 10px;
     width: 100px;
 }
 
 .col-4_subjects{
     display: flex;
     flex-direction: column;
-    margin: 10px 5px 10px 5px;
+    margin: 10px 10px 10px 10px;
     width: 200px;
 }
 /*科目情報のセレクトボックスのCSSここまで*/
 .col-4_studentNum{
     display: flex;
     flex-direction: column;
-    margin: 10px 0px 10px 20px;
+    margin: 10px 20px 10px 20px;
     width: 220px;
+}
+.attention{
+    margin: 5px 5px 5px 5px;
+    color: rgb(0, 162, 255);
 }
 
 
@@ -303,4 +307,15 @@ input[type="submit"] {
 	display: block;
 	margin-top: 10px;
 	
+}
+
+footer{
+    width: 100%;
+    background-color: lightgray;
+    color: #000000;
+    text-align: center;
+    padding: 5px 0;
+
+position: absolute;/*←絶対位置*/
+    bottom: 0; /*下に固定*/
 }
