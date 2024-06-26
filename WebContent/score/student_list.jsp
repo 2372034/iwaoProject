@@ -11,6 +11,7 @@
 		<a href="StudentCreate.action">新規登録</a>
 	</div>
 	<form method="get">
+	<p>${errors.get("f1")}</p>
 		<div class="student_list_search" id="filter">
 			<div class="col-4">
 				<label>入学年度</label>
@@ -41,7 +42,6 @@
 			<div class="col-2 text-center">
 				<button class="btn btn-secondary" id="filter-button">絞り込み</button>
 			</div>
-			<div class="mt-2 text-warning">${errors.get("f1")}</div>
 		</div>
 	</form>
 	<c:choose>
