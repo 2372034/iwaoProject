@@ -30,6 +30,12 @@ public class TestRegistAction extends Action {
         String classNum = request.getParameter("f2"); // 入力されたクラス番号
         String subjectStr = request.getParameter("f3"); // 入力された科目
         String NoStr = request.getParameter("f4"); // 入力された回数
+
+        System.out.println(entYearStr);
+		System.out.println(classNum);
+		System.out.println(subjectStr);
+		System.out.println(NoStr);
+
         int entYear = 0; // 入学年度
         int No = 0; // 回数
         LocalDate todaysDate = LocalDate.now(); // LocalDateインスタンスを取得
@@ -67,11 +73,17 @@ public class TestRegistAction extends Action {
             cNumList = cNumDao.filter(teacher.getSchool());
             subList = subDao.filter(teacher.getSchool());
 
-            // 成績リストを取得
-//            tests = testDao.filter(entYear, classNum, subjectStr, No, teacher.getSchool());
+            // 入力値がすべて揃っている場合にのみ成績リストを取得
+            if (entYearStr != null && !entYearStr.isEmpty() &&
+                classNum != null && !classNum.isEmpty() &&
+                subjectStr != null && !subjectStr.isEmpty() &&
+                NoStr != null && !NoStr.isEmpty()) {
 
-            // リクエストに学生リストをセット
-            request.setAttribute("students", tests);
+                tests = testDao.filter(entYear, classNum, subjectStr, No, teacher.getSchool());
+
+                // リクエストに学生リストをセット
+                request.setAttribute("students", tests);
+            }
         } else {
             // エラーメッセージをリクエストにセット
             request.setAttribute("errors", errors);
