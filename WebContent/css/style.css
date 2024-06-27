@@ -313,8 +313,26 @@ input[type="submit"] {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    width:80%;
   }
 
+.subject_content{
+	width:100%;
+	padding:20px;
+}
+
+.stu-regist-label {
+	margin-bottoom:2px
+}
+
+.stu-regist-input {
+	padding:5px;
+	border-radius:5px;
+}
+.stu-regist-submit {
+	width:100px;
+	padding:5px;
+}
 footer{
     width: 100%;
     background-color: lightgray;
