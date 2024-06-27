@@ -1,10 +1,10 @@
 <%@page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" %>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %><!--  原因 -->
 <link rel="stylesheet" type="text/css" href="../css/style.css">
-<%@include file="../header.jsp" %>
+<%@include file="../header.jsp" %><!--  原因 -->
 <div class="container">
-<%@include file="menu.jsp" %>
+<%@include file="menu.jsp" %><!--  原因 -->
 <div class="test_list_content">
 	<h2>成績参照</h2>
 	<div class="test_search_border">
@@ -16,7 +16,7 @@
 					<select class="form-select" id="test_list-entYearSet-select" name="entYearSet">
 						<option value="0">--------</option>
 						<c:forEach var="year" items="${entYearSet}">
-							<option value="${year}" <c:if test="${year == entYearSet}">selected</c:if>>${year}</option>
+							<option value="${year}" >${year}</option>
 						</c:forEach>
 					</select>
 				</div>
@@ -25,7 +25,7 @@
 					<select class="form-select" id="test_list-classes-select" name="classes">
 						<option value="0">--------</option>
 						<c:forEach var="num" items="${classes}">
-							<option value="${num}" <c:if test="${num == classes}">selected</c:if>>${num}</option>
+							<option value="${num}" >${num}</option>
 						</c:forEach>
 					</select>
 				</div>
@@ -33,8 +33,8 @@
 					<label>科目</label>
 					<select class="form-select" id="test_list-subjects-select" name="subjects">
 						<option value="0">--------</option>
-						<c:forEach var="num" items="${subjects}">
-							<option value="${subject.cd}" <c:if test="${subject.cd == subjects}">selected</c:if>>${num}</option>
+						<c:forEach var="subject" items="${subjects}">
+							<option value="${subject.cd}">${subject.name}</option>
 						</c:forEach>
 					</select>
 				</div>
@@ -54,7 +54,7 @@
 					<button class="btn btn-secondary" id="filter-button">検索</button>
 				</div>
 			</div>
-			
+
 		</form>
 	</div>
 	<div class="attention">
@@ -62,4 +62,4 @@
 	</div>
 </div>
 </div>
-	<%@include file="../footer.jsp" %>
+<%@include file="../footer.jsp" %>

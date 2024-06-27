@@ -38,26 +38,14 @@ public class TestListAction extends Action {
 
 		// 10年前から1年後まで年をリストに追加
 		for (int i = Year - 10; i < Year + 1; i++) {
-		    entYearSet.add(i);
+			entYearSet.add(i);
 		}
-
-		// リストを初期化 (テスト回数セレクトボックス用)
-		List<Integer> testNumSet = new ArrayList<>();
-
-		// 10年前から1年後まで年をリストに追加
-		for (int i = 1; i <= 2; i++) {
-			testNumSet.add(i);
-		}
-
-		request.setAttribute("classes", classes);
-
-		// リクエストにクラス番号をセット
-		request.setAttribute("subjects", subjects);
 
 		request.setAttribute("entYearSet", entYearSet);
-		request.setAttribute("testNumSet", testNumSet);
-
-		request.getRequestDispatcher("test_list.jsp").forward(request,response);
+		request.setAttribute("classes", classes);
+		// リクエストにクラス番号をセット
+		request.setAttribute("subjects", subjects);
+		request.getRequestDispatcher("/score/test_list.jsp").forward(request,response);
 	}
 
 }
