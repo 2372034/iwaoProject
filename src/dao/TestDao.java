@@ -79,12 +79,14 @@ public class TestDao extends Dao {
         try {
             while (rSet.next()) {
                 Test test = new Test();
-                Student student = new Student();
-                student.setNo(rSet.getString("student_no"));
+                // 必要なDAOのインスタンスを取得
+                StudentDao studentDao = new StudentDao();
+                SubjectDao subjectDao = new SubjectDao();
+                // 学生情報を取得して設定
+                Student student = studentDao.get(rSet.getString("student_no"));
                 test.setStudent(student);
-
-                Subject subject = new Subject();
-                subject.setCd(rSet.getString("subject_cd"));
+                // 科目情報を取得して設定
+                Subject subject = subjectDao.get(rSet.getString("subject_cd"),school);
                 test.setSubject(subject);
 
                 test.setSchool(school);
@@ -101,7 +103,7 @@ public class TestDao extends Dao {
     }
 
     // フィルタリングされたテストデータを取得するメソッド
-    public List<Test> filter(int entYear, String classNum, Subject subject, int no, School school) throws Exception {
+    public List<Test> filter(int entYear, String classNum, String subject, int no, School school) throws Exception {
         List<Test> list = new ArrayList<>();
         Connection connection = getConnection();
         PreparedStatement statement = null;
@@ -109,13 +111,12 @@ public class TestDao extends Dao {
 
         try {
             // SQLクエリを準備して実行
-            String sql = "SELECT * FROM test WHERE ent_year=? AND class_num=? AND subject_cd=? AND school_cd=? AND no=?";
+            String sql = "SELECT * FROM test WHERE subject_cd=? AND school_cd=? AND no=?";
             statement = connection.prepareStatement(sql);
-            statement.setInt(1, entYear);
-            statement.setString(2, classNum);
-            statement.setString(3, subject.getCd());
-            statement.setString(4, school.getCd());
-            statement.setInt(5, no);
+            statement.setString(1, subject);
+            statement.setString(2, school.getCd());
+            statement.setInt(3, no);
+            rSet = statement.executeQuery();
             rSet = statement.executeQuery();
 
             // 結果をリストに変換
@@ -124,31 +125,24 @@ public class TestDao extends Dao {
             throw new Exception("テストデータのフィルタリング中にエラーが発生しました", e);
         } finally {
             // リソースを閉じる
-            if (rSet != null) {
-                try {
+            try {
+                if (rSet != null) {
                     rSet.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
                 }
-            }
-            if (statement != null) {
-                try {
+                if (statement != null) {
                     statement.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
                 }
-            }
-            if (connection != null) {
-                try {
+                if (connection != null) {
                     connection.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
                 }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
 
         return list;
     }
+
 
     // リスト内のすべてのテストデータを保存するメソッド
     public boolean save(List<Test> list) throws Exception {

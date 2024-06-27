@@ -13,7 +13,7 @@
 			<!-- 入学年度のセレクトボックス -->
 			<div class="col-4">
 				<label>入学年度</label>
-				<select class="form-select" id="test_regist-entYearSet-select" name="entYearSet">
+				<select class="form-select" id="test_regist-entYearSet-select" name="f1">
 					<option value="0">--------</option>
 					<c:forEach var="year" items="${ent_year_set}">
 						<option value="${year}" <c:if test="${year == param.entYearSet}">selected</c:if>>${year}</option>
@@ -23,7 +23,7 @@
 			<!-- クラスのセレクトボックス -->
 			<div class="col-4">
 				<label class="form-label" for="test_regist-classes-select">クラス</label>
-				<select class="form-select" id="test_regist-classes-select" name="classes">
+				<select class="form-select" id="test_regist-classes-select" name="f2">
 					<option value="0">--------</option>
 					<c:forEach var="num" items="${class_num_set}">
 						<option value="${num}" <c:if test="${num == param.classes}">selected</c:if>>${num}</option>
@@ -33,7 +33,7 @@
 			<!-- 科目のセレクトボックス -->
 			<div class="col-4">
 				<label class="form-label" for="test_regist-subjects-select">科目</label>
-				<select class="form-select" id="test_regist-subjects-select" name="subjects">
+				<select class="form-select" id="test_regist-subjects-select" name="f3">
 					<option value="0">--------</option>
 					<c:forEach var="subject" items="${subject_set}">
 						<option value="${subject.cd}" <c:if test="${subject.cd == param.subjects}">selected</c:if>>${subject.name}</option>
@@ -43,7 +43,7 @@
 			<!-- 回数のセレクトボックス -->
 			<div class="col-4">
 				<label class="form-label" for="test_regist-testNumSet-select">回数</label>
-				<select class="form-select" id="test_regist-testNumSet-select" name="testNumSet">
+				<select class="form-select" id="test_regist-testNumSet-select" name="f4">
 					<option value="0">--------</option>
 					<option value="1" <c:if test="${1 == param.testNumSet}">selected</c:if>>1</option>
 					<option value="2" <c:if test="${2 == param.testNumSet}">selected</c:if>>2</option>
@@ -76,14 +76,14 @@
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="student" items="${students}">
+						<c:forEach var="test" items="${students}">
 							<tr>
-								<td>${student.entYear}</td>
-								<td>${student.classNum}</td>
-								<td>${student.studentId}</td>
-								<td>${student.name}</td>
+								<td>${test.student.entYear}</td>
+								<td>${test.classNum}</td>
+								<td>${test.student.no}</td>
+								<td>${test.student.name}</td>
 								<td>
-									<input type="text" name="score_${student.studentId}" value="${student.score}" />
+									<input type="text" name="score_${test.student.no}" value="${test.point}" />
 								</td>
 							</tr>
 						</c:forEach>
