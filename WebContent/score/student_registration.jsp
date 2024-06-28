@@ -23,7 +23,7 @@
                     <option value="102">102</option>
                     <option value="103">103</option>
                 </select>
-                <button type="submit" class="stu-regist-submit">登録して終了</button>
+                <button type="submit" class="stu-regist-submit" >登録して終了</button>
             <a href="/iwaoProject/score/StudentList.action">戻る</a>
         </form>
      </div>
