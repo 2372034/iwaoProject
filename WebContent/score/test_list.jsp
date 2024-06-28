@@ -16,7 +16,7 @@
 					<select class="form-select" id="test_list-entYearSet-select" name="entYearSet">
 						<option value="0">--------</option>
 						<c:forEach var="year" items="${entYearSet}">
-							<option value="${year}" >${year}</option>
+							<option value="${year}" <c:if test="${year == selectedYear}">selected</c:if>>${year}</option>
 						</c:forEach>
 					</select>
 				</div>
@@ -25,7 +25,7 @@
 					<select class="form-select" id="test_list-classes-select" name="classes">
 						<option value="0">--------</option>
 						<c:forEach var="num" items="${classes}">
-							<option value="${num}" >${num}</option>
+							<option value="${num}" <c:if test="${num == selectedClass}">selected</c:if>>${num}</option>
 						</c:forEach>
 					</select>
 				</div>
@@ -34,7 +34,7 @@
 					<select class="form-select" id="test_list-subjects-select" name="subjects">
 						<option value="0">--------</option>
 						<c:forEach var="subject" items="${subjects}">
-							<option value="${subject.cd}">${subject.name}</option>
+							<option value="${subject.cd}" <c:if test="${subject.cd == selectedSubject}">selected</c:if>>${subject.name}</option>
 						</c:forEach>
 					</select>
 				</div>
@@ -48,7 +48,7 @@
 				<div class="col-2_test_list">学生番号</div>
 				<div class="col-4_studentNum">
 					<label>学生番号</label>
-					<input type="text" placeholder="学生番号を入力してください">
+					<input type="text" name="studentNum" placeholder="学生番号を入力してください" value="${studentNum}">
 				</div>
 				<div class="col-2_button_TestList text-center">
 					<button class="btn btn-secondary" id="filter-button">検索</button>

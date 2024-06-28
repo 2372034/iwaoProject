@@ -41,10 +41,21 @@ public class TestListAction extends Action {
 			entYearSet.add(i);
 		}
 
-		request.setAttribute("entYearSet", entYearSet);
-		request.setAttribute("classes", classes);
+		 // リクエストパラメータから選択された年度、クラス、科目を取得
+		String selectedYear = request.getParameter("entYearSet");
+		String selectedClass = request.getParameter("classes");
+		String selectedSubject = request.getParameter("subjects");
+		String studentNum = request.getParameter("studentNum");
+
+		request.setAttribute("entYearSet", entYearSet); //f1
+		request.setAttribute("classes", classes); //f2
 		// リクエストにクラス番号をセット
 		request.setAttribute("subjects", subjects);
+		request.setAttribute("selectedYear", selectedYear); // 選択された年度を保持
+		request.setAttribute("selectedClass", selectedClass); // 選択されたクラスを保持
+		request.setAttribute("selectedSubject", selectedSubject); // 選択された科目を保持
+		request.setAttribute("studentNum", studentNum); // 入力された学生番号を保持
+
 		request.getRequestDispatcher("/score/test_list.jsp").forward(request,response);
 	}
 
