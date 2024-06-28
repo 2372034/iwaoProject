@@ -29,12 +29,12 @@ public class LoginExecuteAction extends Action {
                 response.sendRedirect(request.getContextPath() + "/score/index.jsp");
             } else {
                 request.setAttribute("error", "Invalid ID or password");
-                request.getRequestDispatcher("/login.jsp").forward(request, response);
+                request.getRequestDispatcher("/score/login.jsp").forward(request, response);
             }
         } catch (Exception e) {
             // 例外処理が必要な場合はここに記述する
             e.printStackTrace();
-            request.getRequestDispatcher("/error.jsp").forward(request, response);
+            request.getRequestDispatcher("/score/error.jsp").forward(request, response);
         }
     }
 }

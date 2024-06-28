@@ -63,7 +63,7 @@
 
 	<c:choose>
 		<c:when test="${not empty students}">
-			<form method="post" action="registerScores">
+			<form method="post" action="TestRegistExecute.action">
 				<p>科目：${selectedSubjectName}（${selectedTestNum}回）</p>
 				<table class="table table-hover">
 					<thead>
@@ -83,7 +83,14 @@
 								<td>${test.student.no}</td>
 								<td>${test.student.name}</td>
 								<td>
-									<input type="text" name="score_${test.student.no}" value="${test.point}" />
+								<c:choose>
+								    <c:when test="${test.point != null}">
+								        <input type="text" name="score_${test.student.no}" value="${test.point}" />
+								    </c:when>
+								    <c:otherwise>
+								        <input type="text" name="score_${test.student.no}" value=null />
+								    </c:otherwise>
+								</c:choose>
 								</td>
 							</tr>
 						</c:forEach>

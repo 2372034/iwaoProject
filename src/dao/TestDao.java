@@ -83,7 +83,7 @@ public class TestDao extends Dao {
                 StudentDao studentDao = new StudentDao();
                 SubjectDao subjectDao = new SubjectDao();
                 // 学生情報を取得して設定
-                Student student = studentDao.get(rSet.getString("student_no"));
+                Student student = studentDao.get(rSet.getString("no"));
                 test.setStudent(student);
                 // 科目情報を取得して設定
                 Subject subject = subjectDao.get(rSet.getString("subject_cd"),school);
@@ -111,12 +111,21 @@ public class TestDao extends Dao {
 
         try {
             // SQLクエリを準備して実行
-            String sql = "SELECT * FROM test WHERE subject_cd=? AND school_cd=? AND no=?";
+            String sql = "SELECT student.NO, student.NAME, student.ENT_YEAR, student.CLASS_NUM,  student.SCHOOL_CD, test.SUBJECT_CD, test.NO, test.POINT"
+            		+" FROM student"
+            		+" LEFT JOIN ("
+            		    +" SELECT  student_no, SUBJECT_CD, NO, POINT"
+            		    +" FROM test"
+            		    +" WHERE no = ? AND subject_cd = ?"
+            		+" ) AS test"
+            		+" ON student.no = test.student_no"
+            		+" WHERE student.school_cd = ? AND student.ent_year = ? AND student.class_num = ?";
             statement = connection.prepareStatement(sql);
-            statement.setString(1, subject);
-            statement.setString(2, school.getCd());
-            statement.setInt(3, no);
-            rSet = statement.executeQuery();
+            statement.setInt(1, no);
+            statement.setString(2, subject);
+            statement.setString(3, school.getCd());
+            statement.setInt(4, entYear);
+            statement.setString(5, classNum);
             rSet = statement.executeQuery();
 
             // 結果をリストに変換
