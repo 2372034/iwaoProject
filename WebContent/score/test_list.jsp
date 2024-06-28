@@ -8,7 +8,8 @@
 <div class="test_list_content">
 	<h2>成績参照</h2>
 	<div class="test_search_border">
-		<form method="get">
+		<div class="test_search_subject">
+		<form method="get" action="TestListStudentExecuteAction.action">
 			<div class="test_list_search" id="filter">
 				<div class="col-2_test_list">科目情報</div>
 				<div class="col-4_entYearSet">
@@ -43,7 +44,11 @@
 				</div>
 				<div class="mt-2 text-warning">${errors.get("entYearSet")}</div>
 			</div>
+		</form>
+		</div>
 
+		<div class="test_search_studentNum">
+		<form method="get" action=""></form>
 			<div class="test_list_student">
 				<div class="col-2_test_list">学生番号</div>
 				<div class="col-4_studentNum">
@@ -54,8 +59,8 @@
 					<button class="btn btn-secondary" id="filter-button">検索</button>
 				</div>
 			</div>
-
 		</form>
+		</div>
 	</div>
 	<div class="attention">
 		<label>科目情報を選択または学生情報を入力して検索ボタンをクリックしてください</label>
