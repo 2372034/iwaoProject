@@ -227,9 +227,12 @@ input[type="submit"] {
 }
 
 .test_search_border{
-    display: flex;
     border: 1px solid #ddd;
     border-radius: 10px;
+}
+
+.test_search_subject{
+    display: flex;
 }
 
 .test_list_search {
@@ -255,6 +258,10 @@ input[type="submit"] {
     flex-direction: column;
     margin:  20px 40px 20px 40px;
     width: 60px;
+}
+
+.test_search_studentNum{
+    display: flex;
 }
 
 /*科目情報のセレクトボックスのCSS*/
@@ -294,6 +301,16 @@ input[type="submit"] {
 /* 成績一覧のスタイルここまで */
 
 /* 成績参照のスタイル */
+.test_list_subject_content{
+    display: flex;
+    flex-direction: column;
+    justify-content:space-around;
+}
+
+/* 成績参照のスタイルここまで*/
+
+
+
 .iwao {
     display: flex;
 }
@@ -314,7 +331,7 @@ input[type="submit"] {
     flex-direction: column;
     gap: 10px;
     width:80%;
-  }
+}
 
 .subject_content{
 	width:100%;
@@ -322,7 +339,7 @@ input[type="submit"] {
 }
 
 .stu-regist-label {
-	margin-bottoom:2px
+	margin-bottom:2px;
 }
 
 .stu-regist-input {
@@ -342,4 +359,14 @@ footer{
 
 position: absolute;/*←絶対位置*/
     bottom: 0; /*下に固定*/
+}
+
+.stu-regist-form {
+    text-align: center;
+    background-color: green;
+    color: black;
+    margin-bottom:80px
+}
+.form-group a {
+    margin-right:60px
 }
