@@ -356,7 +356,7 @@ footer{
     color: #000000;
     text-align: center;
     padding: 5px 0;
-
+2
 position: absolute;/*←絶対位置*/
     bottom: 0; /*下に固定*/
 }
@@ -369,4 +369,13 @@ position: absolute;/*←絶対位置*/
 }
 .form-group a {
     margin-right:60px
+}
+.logout {
+	width: 615px; /* 固定の横幅を指定 */
+    margin: 0 auto; /* 横方向の中央揃え */
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+#logout_h2{
+	margin-top: 10px;
 }
