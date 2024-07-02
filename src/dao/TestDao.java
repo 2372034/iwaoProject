@@ -83,15 +83,20 @@ public class TestDao extends Dao {
                 StudentDao studentDao = new StudentDao();
                 SubjectDao subjectDao = new SubjectDao();
                 // 学生情報を取得して設定
-                Student student = studentDao.get(rSet.getString("no"));
+                Student student = studentDao.get(rSet.getString("student_no"));
                 test.setStudent(student);
                 // 科目情報を取得して設定
-                Subject subject = subjectDao.get(rSet.getString("subject_cd"),school);
+                Subject subject = subjectDao.get(rSet.getString("subject_cd"), school);
                 test.setSubject(subject);
 
                 test.setSchool(school);
                 test.setNo(rSet.getInt("no"));
-                test.setPoint(rSet.getInt("point"));
+                int point = rSet.getInt("point");
+                if (rSet.wasNull()) {
+                    test.setPoint(null); // POINTがnullなら、テストのポイントもnullに設定
+                } else {
+                    test.setPoint(point);
+                }
                 test.setClassNum(rSet.getString("class_num"));
 
                 list.add(test);
@@ -111,15 +116,15 @@ public class TestDao extends Dao {
 
         try {
             // SQLクエリを準備して実行
-            String sql = "SELECT student.NO, student.NAME, student.ENT_YEAR, student.CLASS_NUM,  student.SCHOOL_CD, test.SUBJECT_CD, test.NO, test.POINT"
-            		+" FROM student"
-            		+" LEFT JOIN ("
-            		    +" SELECT  student_no, SUBJECT_CD, NO, POINT"
-            		    +" FROM test"
-            		    +" WHERE no = ? AND subject_cd = ?"
-            		+" ) AS test"
-            		+" ON student.no = test.student_no"
-            		+" WHERE student.school_cd = ? AND student.ent_year = ? AND student.class_num = ?";
+            String sql = "SELECT student.NO AS student_no, student.NAME, student.ENT_YEAR, student.CLASS_NUM, student.SCHOOL_CD, test.SUBJECT_CD, test.NO, test.POINT"
+                + " FROM student"
+                + " LEFT JOIN ("
+                + " SELECT student_no, SUBJECT_CD, NO, POINT"
+                + " FROM test"
+                + " WHERE no = ? AND subject_cd = ?"
+                + " ) AS test"
+                + " ON student.no = test.student_no"
+                + " WHERE student.school_cd = ? AND student.ent_year = ? AND student.class_num = ?";
             statement = connection.prepareStatement(sql);
             statement.setInt(1, no);
             statement.setString(2, subject);
@@ -152,7 +157,6 @@ public class TestDao extends Dao {
         return list;
     }
 
-
     // リスト内のすべてのテストデータを保存するメソッド
     public boolean save(List<Test> list) throws Exception {
         boolean result = true;
@@ -183,24 +187,62 @@ public class TestDao extends Dao {
     }
 
     // 単一のテストデータを保存するヘルパーメソッド
+ // 単一のテストデータを保存するヘルパーメソッド
     private boolean save(Test test, Connection connection) throws Exception {
         boolean result = false;
+        PreparedStatement checkStatement = null;
         PreparedStatement statement = null;
+        ResultSet rSet = null;
 
         try {
-            String sql = "INSERT INTO test (student_no, subject_cd, school_cd, no, point, class_num) VALUES (?, ?, ?, ?, ?, ?)";
-            statement = connection.prepareStatement(sql);
-            statement.setString(1, test.getStudent().getNo());
-            statement.setString(2, test.getSubject().getCd());
-            statement.setString(3, test.getSchool().getCd());
-            statement.setInt(4, test.getNo());
-            statement.setInt(5, test.getPoint());
-            statement.setString(6, test.getClassNum());
+            // データが存在するかどうかを確認するためのクエリ
+            String checkSql = "SELECT point FROM test WHERE student_no=? AND subject_cd=? AND school_cd=? AND no=?";
+            checkStatement = connection.prepareStatement(checkSql);
+            checkStatement.setString(1, test.getStudent().getNo());
+            checkStatement.setString(2, test.getSubject().getCd());
+            checkStatement.setString(3, test.getSchool().getCd());
+            checkStatement.setInt(4, test.getNo());
+            rSet = checkStatement.executeQuery();
 
+            if (rSet.next()) {
+                // データが存在する場合はUPDATE文を実行
+                String updateSql = "UPDATE test SET point=? WHERE student_no=? AND subject_cd=? AND school_cd=? AND no=?";
+                statement = connection.prepareStatement(updateSql);
+                statement.setInt(1, test.getPoint());
+                statement.setString(2, test.getStudent().getNo());
+                statement.setString(3, test.getSubject().getCd());
+                statement.setString(4, test.getSchool().getCd());
+                statement.setInt(5, test.getNo());
+            } else {
+                // データが存在しない場合はINSERT文を実行
+                String insertSql = "INSERT INTO test (student_no, subject_cd, school_cd, no, point, class_num) VALUES (?, ?, ?, ?, ?, ?)";
+                statement = connection.prepareStatement(insertSql);
+                statement.setString(1, test.getStudent().getNo());
+                statement.setString(2, test.getSubject().getCd());
+                statement.setString(3, test.getSchool().getCd());
+                statement.setInt(4, test.getNo());
+                statement.setInt(5, test.getPoint());
+                statement.setString(6, test.getClassNum()); // クラス番号も保存する
+            }
+            System.out.println(test.getSubject());
             result = statement.executeUpdate() > 0;
         } catch (SQLException e) {
             throw new Exception("テストの保存中にエラーが発生しました", e);
         } finally {
+            if (rSet != null) {
+                try {
+                    rSet.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            if (checkStatement != null) {
+                try {
+                    checkStatement.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
             if (statement != null) {
                 try {
                     statement.close();

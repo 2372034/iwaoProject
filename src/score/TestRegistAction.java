@@ -31,11 +31,6 @@ public class TestRegistAction extends Action {
         String subjectStr = request.getParameter("f3"); // 入力された科目
         String NoStr = request.getParameter("f4"); // 入力された回数
 
-        System.out.println(entYearStr);
-		System.out.println(classNum);
-		System.out.println(subjectStr);
-		System.out.println(NoStr);
-
         int entYear = 0; // 入学年度
         int No = 0; // 回数
         LocalDate todaysDate = LocalDate.now(); // LocalDateインスタンスを取得
