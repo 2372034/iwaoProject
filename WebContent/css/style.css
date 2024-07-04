@@ -237,7 +237,7 @@ input[type="submit"] {
 
 .test_list_search {
     display: flex;
-    justify-content:space-around; 
+    justify-content:space-around;
 }
 
 .test_list_student {
@@ -300,6 +300,12 @@ input[type="submit"] {
 
 /* 成績一覧のスタイルここまで */
 
+/* 学生登録のスタイル */
+.error-message{
+	color: orange;
+}
+/* 学生登録のスタイルここまで */
+
 /* 成績参照のスタイル */
 .test_list_subject_content{
     display: flex;
@@ -323,7 +329,7 @@ input[type="submit"] {
 #subjectreturn {
 	display: block;
 	margin-top: 10px;
-	
+
 }
 
 .student-form {

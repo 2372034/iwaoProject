@@ -14,14 +14,23 @@ public class StudentCreateExecuteAction extends Action {
     public void execute(
         HttpServletRequest request, HttpServletResponse response
     ) throws Exception {
-    	HttpSession session=request.getSession();
+        HttpSession session = request.getSession();
         Teacher teacher = (Teacher) session.getAttribute("user");
 
-     // TeacherオブジェクトからSchoolオブジェクトを取得
+        // TeacherオブジェクトからSchoolオブジェクトを取得
         School school = teacher.getSchool();
 
         // ユーザーからの入力値を受け取る
-        int entYear = Integer.parseInt(request.getParameter("ent_year")); // 入学年度
+        int entYear;
+        try {
+            entYear = Integer.parseInt(request.getParameter("ent_year")); // 入学年度
+        } catch (NumberFormatException e) {
+            // エラーメッセージを設定し、登録画面にリダイレクト
+            request.setAttribute("error", "入学年度を選択してください");
+            request.getRequestDispatcher("/score/student_registration.jsp").forward(request, response);
+            return; // エラーがあった場合はここで処理を終了する
+        }
+
         String no = request.getParameter("no"); // 学生番号
         String name = request.getParameter("name"); // 氏名
         String classNum = request.getParameter("class_num"); // クラス
@@ -35,13 +44,17 @@ public class StudentCreateExecuteAction extends Action {
         student.setIsAttend(true);
         student.setSchool(school); // Schoolを設定
 
-		System.out.println(entYear);
-		System.out.println(no);
-		System.out.println(name);
-		System.out.println(classNum);
-
         // StudentDAOインスタンスを生成
         StudentDao dao = new StudentDao();
+     // 学生番号の重複チェック
+        Student existingStudent = dao.get(no);
+        if (existingStudent != null) {
+            // 学生番号が既に存在する場合のエラーメッセージを設定し、登録画面にリダイレクト
+            request.setAttribute("error2", "学生番号が重複しています");
+            request.getRequestDispatcher("/score/student_registration.jsp").forward(request, response);
+            return; // エラーがあった場合はここで処理を終了する
+        }
+
         // StudentDAOのsaveメソッドを実行してデータベースに登録
         boolean count = dao.save(student);
 
