@@ -17,7 +17,7 @@ public class LoginExecuteAction extends Action {
         this.teacherDao = new TeacherDao(); // TeacherDao のインスタンスをコンストラクタで初期化
     }
 
-     @Override
+    @Override
     public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
         String password = request.getParameter("password");
@@ -29,6 +29,7 @@ public class LoginExecuteAction extends Action {
                 response.sendRedirect(request.getContextPath() + "/score/index.jsp");
             } else {
                 request.setAttribute("error", "Invalid ID or password");
+                request.setAttribute("id", id);  // 入力されたIDをリクエストスコープに設定
                 request.getRequestDispatcher("/score/login.jsp").forward(request, response);
             }
         } catch (Exception e) {
