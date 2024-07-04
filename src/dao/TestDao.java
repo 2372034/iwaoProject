@@ -116,21 +116,21 @@ public class TestDao extends Dao {
 
         try {
             // SQLクエリを準備して実行
-            String sql = "SELECT student.NO AS student_no, student.NAME, student.ENT_YEAR, student.CLASS_NUM, student.SCHOOL_CD, test.SUBJECT_CD, test.NO, test.POINT"
-                + " FROM student"
-                + " LEFT JOIN ("
-                + " SELECT student_no, SUBJECT_CD, NO, POINT"
-                + " FROM test"
-                + " WHERE no = ? AND subject_cd = ?"
-                + " ) AS test"
-                + " ON student.no = test.student_no"
-                + " WHERE student.school_cd = ? AND student.ent_year = ? AND student.class_num = ?";
+            String sql = "SELECT student.NO AS student_no, student.NAME, student.ENT_YEAR, student.CLASS_NUM, student.SCHOOL_CD, "
+                    + "COALESCE(test.SUBJECT_CD, ?) AS SUBJECT_CD, COALESCE(test.NO, ?) AS NO, test.POINT "
+                    + "FROM student "
+                    + "LEFT JOIN (SELECT student_no, SUBJECT_CD, NO, POINT "
+                    + "FROM test WHERE no = ? AND subject_cd = ?) AS test "
+                    + "ON student.no = test.student_no "
+                    + "WHERE student.school_cd = ? AND student.ent_year = ? AND student.class_num = ?";
             statement = connection.prepareStatement(sql);
-            statement.setInt(1, no);
-            statement.setString(2, subject);
-            statement.setString(3, school.getCd());
-            statement.setInt(4, entYear);
-            statement.setString(5, classNum);
+            statement.setString(1, subject);
+            statement.setInt(2, no);
+            statement.setInt(3, no);
+            statement.setString(4, subject);
+            statement.setString(5, school.getCd());
+            statement.setInt(6, entYear);
+            statement.setString(7, classNum);
             rSet = statement.executeQuery();
 
             // 結果をリストに変換
@@ -186,8 +186,7 @@ public class TestDao extends Dao {
         return result;
     }
 
-    // 単一のテストデータを保存するヘルパーメソッド
- // 単一のテストデータを保存するヘルパーメソッド
+    // 単一のテストデータを保存または更新するヘルパーメソッド
     private boolean save(Test test, Connection connection) throws Exception {
         boolean result = false;
         PreparedStatement checkStatement = null;
@@ -206,13 +205,20 @@ public class TestDao extends Dao {
 
             if (rSet.next()) {
                 // データが存在する場合はUPDATE文を実行
-                String updateSql = "UPDATE test SET point=? WHERE student_no=? AND subject_cd=? AND school_cd=? AND no=?";
+                String updateSql = "UPDATE test SET point=?, class_num=? WHERE student_no=? AND subject_cd=? AND school_cd=? AND no=?";
                 statement = connection.prepareStatement(updateSql);
-                statement.setInt(1, test.getPoint());
-                statement.setString(2, test.getStudent().getNo());
-                statement.setString(3, test.getSubject().getCd());
-                statement.setString(4, test.getSchool().getCd());
-                statement.setInt(5, test.getNo());
+                if (test.getPoint() == null) {
+                    statement.setNull(1, java.sql.Types.INTEGER); // POINTがnullの場合はNULLとして設定
+                    System.out.println("Setting point to NULL for student_no=" + test.getStudent().getNo() + ", subject_cd=" + test.getSubject().getCd() + ", no=" + test.getNo());
+                } else {
+                    statement.setInt(1, test.getPoint());
+                    System.out.println("Setting point to " + test.getPoint() + " for student_no=" + test.getStudent().getNo() + ", subject_cd=" + test.getSubject().getCd() + ", no=" + test.getNo());
+                }
+                statement.setString(2, test.getClassNum());
+                statement.setString(3, test.getStudent().getNo());
+                statement.setString(4, test.getSubject().getCd());
+                statement.setString(5, test.getSchool().getCd());
+                statement.setInt(6, test.getNo());
             } else {
                 // データが存在しない場合はINSERT文を実行
                 String insertSql = "INSERT INTO test (student_no, subject_cd, school_cd, no, point, class_num) VALUES (?, ?, ?, ?, ?, ?)";
@@ -221,14 +227,21 @@ public class TestDao extends Dao {
                 statement.setString(2, test.getSubject().getCd());
                 statement.setString(3, test.getSchool().getCd());
                 statement.setInt(4, test.getNo());
-                statement.setInt(5, test.getPoint());
-                statement.setString(6, test.getClassNum()); // クラス番号も保存する
+                if (test.getPoint() == null) {
+                    statement.setNull(5, java.sql.Types.INTEGER); // POINTがnullの場合はNULLとして設定
+                    System.out.println("Inserting NULL point for student_no=" + test.getStudent().getNo() + ", subject_cd=" + test.getSubject().getCd() + ", no=" + test.getNo());
+                } else {
+                    statement.setInt(5, test.getPoint());
+                    System.out.println("Inserting point " + test.getPoint() + " for student_no=" + test.getStudent().getNo() + ", subject_cd=" + test.getSubject().getCd() + ", no=" + test.getNo());
+                }
+                statement.setString(6, test.getClassNum());
             }
-            System.out.println(test.getSubject());
             result = statement.executeUpdate() > 0;
+            System.out.println("Update/Insert result: " + result);
         } catch (SQLException e) {
             throw new Exception("テストの保存中にエラーが発生しました", e);
         } finally {
+            // リソースを閉じる
             if (rSet != null) {
                 try {
                     rSet.close();

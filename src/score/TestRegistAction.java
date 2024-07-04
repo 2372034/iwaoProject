@@ -14,7 +14,6 @@ import bean.Subject;
 import bean.Teacher;
 import bean.Test;
 import dao.ClassNumDao;
-import dao.StudentDao;
 import dao.SubjectDao;
 import dao.TestDao;
 import tool.Action;
@@ -35,7 +34,6 @@ public class TestRegistAction extends Action {
         int No = 0; // 回数
         LocalDate todaysDate = LocalDate.now(); // LocalDateインスタンスを取得
         int year = todaysDate.getYear(); // 現在の年を取得
-        StudentDao sDao = new StudentDao();
         ClassNumDao cNumDao = new ClassNumDao(); // クラス番号Daoの初期化
         SubjectDao subDao = new SubjectDao();
         TestDao testDao = new TestDao(); // テストDao

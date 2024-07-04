@@ -14,7 +14,6 @@ import bean.Subject;
 import bean.Teacher;
 import bean.Test;
 import dao.ClassNumDao;
-import dao.StudentDao;
 import dao.SubjectDao;
 import dao.TestDao;
 import tool.Action;
@@ -33,7 +32,6 @@ public class TestRegistExecuteAction extends Action {
         int No = 0;
         LocalDate todaysDate = LocalDate.now();
         int year = todaysDate.getYear();
-        StudentDao sDao = new StudentDao();
         ClassNumDao cNumDao = new ClassNumDao();
         SubjectDao subDao = new SubjectDao();
         TestDao testDao = new TestDao();
@@ -92,20 +90,23 @@ public class TestRegistExecuteAction extends Action {
         boolean hasErrors = false;
         for (Test test : tests) {
             String pointStr = request.getParameter("score_" + test.getStudent().getNo());
-            if (pointStr != null && !pointStr.isEmpty()) {
-                try {
-                    int point = Integer.parseInt(pointStr);
-                    test.setPoint(point);
-                } catch (NumberFormatException e) {
-                    errors.put("score_" + test.getStudent().getNo(), "点数は整数で入力してください。");
-                    hasErrors = true;
+            if (pointStr != null) {
+                if (pointStr.isEmpty()) {
+                    test.setPoint(null);
+                } else {
+                    try {
+                        int point = Integer.parseInt(pointStr);
+                        test.setPoint(point);
+                    } catch (NumberFormatException e) {
+                        errors.put("score_" + test.getStudent().getNo(), "点数は整数で入力してください。");
+                        hasErrors = true;
+                    }
                 }
             }
         }
 
         if (!hasErrors) {
             try {
-
                 boolean success = testDao.save(tests);
                 if (success) {
                     request.setAttribute("message", "テストデータの保存が成功しました。");
