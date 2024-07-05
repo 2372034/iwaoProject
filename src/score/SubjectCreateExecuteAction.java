@@ -32,6 +32,25 @@ public class SubjectCreateExecuteAction extends Action {
 
         // 科目をデータベースに保存
         SubjectDao dao = new SubjectDao();
+        Subject existingSubject = dao.get(cd, teacher.getSchool());
+        // バリデーションチェック
+
+           if (cd.length() != 3) {
+           request.setAttribute("error", "科目コードは3文字で入力してください");
+           request.setAttribute("cd", cd); // 入力された科目コードをリクエストスコープに設定
+           request.setAttribute("name", name); // 入力された科目名をリクエストスコープに設定
+           request.getRequestDispatcher("/score/subject_registration.jsp").forward(request, response);
+           return; // ここで処理を終了
+
+           }
+        if (existingSubject != null) {
+            // 科目コードが既に存在する場合のエラーメッセージを設定し、登録画面にリダイレクト
+            request.setAttribute("error2", "科目コードが重複しています");
+            request.setAttribute("cd", cd); // 科目コードを再設定
+            request.setAttribute("name", name); // 科目名を再設定
+            request.getRequestDispatcher("/score/subject_registration.jsp").forward(request, response);
+            return; // エラーがあった場合はここで処理を終了する
+        }
         boolean count = dao.save(subject);
 
         // 結果に応じてメッセージを設定
