@@ -1,66 +1,66 @@
 package bean;
 
-import java.io.Serializable;
-import java.util.HashMap;
 import java.util.Map;
 
-public class TestListSubject implements Serializable {
+public class TestListSubject {
 
-    private int entYear;
-    private String studentNo;
-    private String studentName;
-    private String classNum;
-    private Map<Integer, Integer> points;
+	private int entYear;
+	private String studentNo;
+	private String studentName;
+	private String classNum;
+	private Map<Integer,Integer> points;
 
-    public TestListSubject() {
-        points = new HashMap<>();
+	public TestListSubject(){
+
+	}
+
+	public int getEntYear(){
+		return entYear;
+	}
+
+	public String getStudentNo(){
+		return studentNo;
+	}
+
+	public String getStudentName(){
+		return studentName;
+	}
+
+	public String getClassNum(){
+		return classNum;
+	}
+
+	public Map<Integer,Integer> getPoints(){
+		return points;
+	}
+
+	public int getPoint(int key) {
+        return points.getOrDefault(key, 0);
     }
 
-    public int getEntYear() {
-        return entYear;
-    }
+	public void setEntYear(int entYear){
+		this.entYear=entYear;
+	}
 
-    public void setEntYear(int entYear) {
-        this.entYear = entYear;
-    }
+	public void setStudentNo(String studentNo){
+		this.studentNo=studentNo;
+	}
 
-    public String getStudentNo() {
-        return studentNo;
-    }
+	public void setStudentName(String studentName){
+		this.studentName=studentName;
+	}
 
-    public void setStudentNo(String studentNo) {
-        this.studentNo = studentNo;
-    }
+	public void setClassNum(String classNum){
+		this.classNum=classNum;
+	}
 
-    public String getStudentName() {
-        return studentName;
-    }
+	public void setPoints(Map<Integer,Integer> points){
+		this.points=points;
+	}
 
-    public void setStudentName(String studentName) {
-        this.studentName = studentName;
-    }
+	public void putPoint(int key,int value){
+		this.points.put(key, value);
 
-    public String getClassNum() {
-        return classNum;
-    }
-
-    public void setClassNum(String classNum) {
-        this.classNum = classNum;
-    }
-
-    public Map<Integer, Integer> getPoints() {
-        return points;
-    }
-
-    public void setPoints(Map<Integer, Integer> points) {
-        this.points = points;
-    }
-
-    public Integer getPoint(int key) {
-        return points.get(key);
-    }
-
-    public void putPoint(int key, int value) {
-        this.points.put(key, value);
-    }
+	}
+	
 }
