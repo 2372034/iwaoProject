@@ -14,7 +14,7 @@
             <input type="number" name="no" value="${student.no}" readonly>
 
             <label>氏名</label>
-            <input type="text" name="name" value="${student.name}" >
+            <input type="text" name="name" value="${student.name}" required>
 
             <label>クラス</label>
                 <select name="class_num">
