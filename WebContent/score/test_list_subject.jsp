@@ -59,7 +59,7 @@
         </form>
     </div>
     <c:choose>
-        <c:when test="${not empty selectedClass and not empty selectedSubject}">
+        <c:when test="${not empty selectedYear and not empty selectedClass and not empty selectedSubject}">
             <!-- クラスと科目が入力されている場合の処理 -->
             <c:set var="selectedSubjectName" value="" />
             <c:forEach var="subject" items="${subjects}">
@@ -68,15 +68,6 @@
                 </c:if>
             </c:forEach>
             <div>科目：${selectedSubjectName}</div>
-
-            <!-- デバッグ情報の追加 -->
-            <c:if test="${empty testListSubjects}">
-                <p>No results found.</p>
-            </c:if>
-            <c:if test="${not empty testListSubjects}">
-                <p>Number of results: ${fn:length(TestListSubjects)}</p>
-            </c:if>
-
                 <table class="subject_list">
                     <tr>
                         <th>入学年度</th>
@@ -86,25 +77,32 @@
                         <th>1回</th>
                         <th>2回</th>
                     </tr>
-                    <c:forEach var="TestListSubject" items="${TestListSubjects}">
+                    <c:forEach var="TestListSubject" items="${testListSubjects}">
                         <tr>
-                            <td>${TestListSubject.entYear}</td>
-                            <td>${TestListSubject.classNum}</td>
-                            <td>${TestListSubject.studentNo}</td>
-                            <td>${TestListSubject.studentName}</td>
-                            <c:forEach var="entry" items="${TestListSubject.points}">
-                                <td>${entry.value}</td>
+                            <td>${TestListSubject.getEntYear()}</td>
+                            <td>${TestListSubject.getClassNum()}</td>
+                            <td>${TestListSubject.getStudentNo()}</td>
+                            <td>${TestListSubject.getStudentName()}</td>
+                            <c:forEach var="entry" items="${TestListSubject.getPoints()}">
+                                <<c:choose>
+                                    <c:when test="${entry.value == -1}">
+                                        <td>-</td>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <td>${entry.value}</td>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:forEach>
                         </tr>
                     </c:forEach>
                 </table>
         </c:when>
-        <c:otherwise>
-            <!-- クラスまたは科目が入力されていない場合の処理 -->
-            <div class="no-result">
-                <p>何も入力されていません</p>
-            </div>
-        </c:otherwise>
+            <c:otherwise>
+                <!-- 入学年度、クラスまたは科目が入力されていない場合の処理 -->
+                <div class="test_list_search">
+                    <p>入学年度とクラスと科目を入力してください</p>
+                </div>
+            </c:otherwise>
     </c:choose>
 </div>
 </div>
