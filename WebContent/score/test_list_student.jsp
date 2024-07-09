@@ -7,7 +7,7 @@
     <div class="test_list_content">
         <h2>成績参照</h2>
         <div class="test_search_border">
-            <form method="get" action="TestListStudentExecute.action">
+            <form method="get" action="TestListSubjectExecute.action">
                 <div class="test_list_search" id="filter">
                     <div class="col-2_test_list">科目情報</div>
                     <div class="col-4_entYearSet">
@@ -42,18 +42,20 @@
                     </div>
                     <div class="mt-2 text-warning">${errors.get("entYearSet")}</div>
                 </div>
-
+			</form>
+            <form method="get" action="TestListStudentExecute.action">
                 <div class="test_list_student">
-                    <div class="col-2_test_list">学生番号</div>
-                    <div class="col-4_studentNum">
-                        <label>学生番号</label>
-                        <input type="text" name="studentNum" placeholder="学生番号を入力してください" value="${not empty param.studentNum ? param.studentNum : ''}">
-                    </div>
-                    <div class="col-2_button_TestList text-center">
-                        <button class="btn btn-secondary" id="filter-button">検索</button>
-                    </div>
-                </div>
+	                <div class="col-2_test_list">学生番号</div>
+	                <div class="col-4_studentNum">
+	                    <label>学生番号</label>
+	                    <input type="text" name="studentNum" placeholder="学生番号を入力してください" value="${studentNum}">
+	                </div>
+	                <div class="col-2_button_TestList text-center">
+	                    <button class="btn btn-secondary" id="filter-button-2">検索</button>
+	                </div>
+	            </div>
             </form>
+
         </div>
         <c:choose>
             <c:when test="${not empty error}">
