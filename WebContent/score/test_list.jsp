@@ -9,7 +9,7 @@
 	<h2>成績参照</h2>
 	<div class="test_search_border">
 		<div class="test_search_subject">
-		<form method="get" action="TestListStudentExecuteAction.action">
+		<form method="get" action="TestListSubjectExecute.action">
 			<div class="test_list_search" id="filter">
 				<div class="col-2_test_list">科目情報</div>
 				<div class="col-4_entYearSet">
@@ -45,6 +45,7 @@
 				<div class="mt-2 text-warning">${errors.get("entYearSet")}</div>
 			</div>
 		</form>
+		<p style="color:yellow">${message}</p>
 		</div>
 
 		<div class="test_search_studentNum">
