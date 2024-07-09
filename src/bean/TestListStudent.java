@@ -8,7 +8,7 @@ public class TestListStudent implements Serializable {
 	private int num;
 	private int point;
 
-	public String getSubejctName() {
+	public String getSubjectName() {
 		return subjectName;
 	}
 	public void setSubjectName(String subjectName) {
@@ -18,7 +18,7 @@ public class TestListStudent implements Serializable {
 		return subjectCd;
     }
     public void setSubjectCd(String SubjectCd) {
-        this.subjectCd = subjectCd;
+        this.subjectCd = SubjectCd;
     }
 	public int getNum() {
 		return  num;

@@ -49,7 +49,7 @@
 		</div>
 
 		<div class="test_search_studentNum">
-		<form method="get" action=""></form>
+		<form method="get" action="TestListStudentExecute.action">
 			<div class="test_list_student">
 				<div class="col-2_test_list">学生番号</div>
 				<div class="col-4_studentNum">
