@@ -59,13 +59,15 @@ public class TestListSubjectExecuteAction extends Action {
         String selectedClass = request.getParameter("classes"); // ユーザー指定のクラス
         String selectedSubjectCd = request.getParameter("subjects"); // ユーザー指定の科目
         String studentNum = request.getParameter("studentNum"); // ユーザー指定の学生番号
-
-        if (selectedYearStr == null || selectedYearStr.isEmpty() ||
-        selectedClass == null || selectedClass.isEmpty() ||
-        selectedSubjectCd == null || selectedSubjectCd.isEmpty()) {
+        System.out.println("untiiii");
+        if (entYear == 0 || selectedClass == null || selectedClass.equals("0") || selectedSubjectCd == null || selectedSubjectCd.equals("0")) {
         String message = "入学年度とクラスと科目を選択してください";
         request.setAttribute("message", message);
-        request.getRequestDispatcher("test_list.jsp").forward(request, response);
+        request.setAttribute("entYearSet", entYearSet); // f1 次のjspのセレクトボックス用
+        request.setAttribute("classes", classes); // f2 次のjspのセレクトボックス用
+        request.setAttribute("subjects", subjects);// 次のjspのセレクトボックス用
+        System.out.println("unti");
+        request.getRequestDispatcher("/score/test_list.jsp").forward(request, response);
         return;
         }
 
