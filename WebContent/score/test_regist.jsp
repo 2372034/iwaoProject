@@ -52,8 +52,8 @@
                     </select>
                 </div>
                 <!-- 検索ボタン -->
-                <div class="col-2 text-center">
-                    <button class="btn btn-secondary" id="filter-button">検索</button>
+                <div class="col-2_button_TestList">
+                    <button class="btn-grades" id="filter-button">検索</button>
                 </div>
                 <!-- エラーメッセージの表示 -->
                 <div class="mt-2 text-warning">${errors.get("f1")}</div>
