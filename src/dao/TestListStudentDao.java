@@ -50,10 +50,7 @@ public class TestListStudentDao extends Dao {
             stmt.setString(2, student.getSchool().getCd());
             rSet = stmt.executeQuery();
 
-            // Process ResultSet only if there are results
-            if (rSet.next()) {
-                results = postFilter(rSet); // Process ResultSet
-            }
+            results = postFilter(rSet); // ResultSetを処理
 
         } catch (SQLException e) {
             e.printStackTrace();
