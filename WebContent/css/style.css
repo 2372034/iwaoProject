@@ -391,12 +391,15 @@ footer {
 #subjectreturn {
 	display: block;
 	margin-top: 10px;
-
 }
 #studentCode {
 	margin-left: 10px;
 }
 
+#studentreturn {
+	display: block;
+	margin-top: 10px;
+}
 .student-form {
     display: flex;
     flex-direction: column;
@@ -455,4 +458,12 @@ footer {
 #sub-form{
 	width: 200px;
 	
+}
+
+.stu-change-label {
+	margin-bottom:8px;
+}
+
+.stu-change-isattend {
+	margin-top:12px;
 }
