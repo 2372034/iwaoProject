@@ -1,10 +1,13 @@
 /* 共通部分 */
-body {
+html, body {
     margin: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 h1 {
-    background-color: lightblue;
+    background-color:  #e6f3ff;
     margin: 0;
     padding-left: 1.5em;
 }
@@ -27,6 +30,26 @@ button {
     border: none; /* 枠線を消す */
     outline: none; /* クリックした際に枠線を消す */
     box-shadow: none; /* 影を消す */
+    padding:5px;
+}
+
+table {
+	width:100%;
+	border-collapse: collapse;
+	max-height: 100%;
+    overflow-y: auto;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+tr {
+	    border: 1px solid #ccc;
+}
+
+th:first-child,td:first-child {
+	width:18%;
 }
 
 input[type="submit"] {
@@ -35,6 +58,14 @@ input[type="submit"] {
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    width: 50px;
+}
+
+select {
+	width:100%;
+	height:35px;
+	padding:5px;
+	margin-right:10px;
 }
 
 .form-select {
@@ -44,24 +75,37 @@ input[type="submit"] {
 .header_content1 {
     font-size: 14px;
     float: right;
-    margin: 20px 40px 0px 10px;
+    margin: 20px 10px 0px 10px;
 }
 
 .header_content2 {
     font-size: 14px;
     float: right;
-    margin: 20px 10px 0px 10px;
+    margin: 20px 40px 0px 10px;
+}
+
+footer {
+    width: 100%;
+    background-color: lightgray;
+    color: #000000;
+    text-align: center;
+    padding: 5px 0;
+  	height:80px;
+    bottom: 0; /* 下に固定 */
 }
 
 /* Container Flex Styles */
 .container {
     display: flex;
+    height:100%;
 }
 
 /* サイドバーのスタイル */
 .global-navi {
     width: 200px;
     padding: 15px;
+    height: 100%; /* 縦幅を100%に設定 */
+    overflow-y: auto; /* コンテンツが多い場合にスクロールを許可 */
 }
 
 /* ナビゲーションのスタイル */
@@ -71,6 +115,10 @@ input[type="submit"] {
     margin: 0;
 }
 
+.global-navi nav {
+    flex: 1; /* 縦にいっぱいに広がる */
+    overflow-y: auto; /* コンテンツが多い場合にスクロールを許可 */
+}
 .global-navi nav ul li {
     margin: 10px 0;
 }
@@ -94,6 +142,12 @@ input[type="submit"] {
     margin: 5px 0;
 }
 
+
+.content {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
 /* ログインのスタイル */
 .login-form {
     display: flex;
@@ -118,6 +172,7 @@ input[type="submit"] {
     border-radius: 4px;
     height: 7vh;
     padding-left: 30px;
+    background-color:  #e6f3ff;
 }
 
 .login-form input[type="submit"] {
@@ -191,6 +246,8 @@ input[type="submit"] {
     align-items: center;
     padding: 20px;
     width: 100%;
+    height: calc(100vh - 80px); /* 50pxはフッターの高さに合わせて調整してください */
+    overflow-y: auto;
 }
 
 .new_create {
@@ -297,12 +354,16 @@ input[type="submit"] {
     color: rgb(0, 162, 255);
 }
 
+.btn-grades{
+	 width: 50px;
+}
 
 /* 成績一覧のスタイルここまで */
 
 /* 学生登録のスタイル */
 .error-message{
 	color: orange;
+	
 }
 /* 学生登録のスタイルここまで */
 
@@ -339,6 +400,13 @@ input[type="submit"] {
     width:80%;
 }
 
+.subject-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width:80%;
+}
+
 .subject_content{
 	width:100%;
 	padding:20px;
@@ -350,26 +418,20 @@ input[type="submit"] {
 
 .stu-regist-input {
 	padding:5px;
-	border-radius:5px;
 }
 .stu-regist-submit {
 	width:100px;
 	padding:5px;
 }
-footer{
-    width: 100%;
-    background-color: lightgray;
-    color: #000000;
-    text-align: center;
-    padding: 5px 0;
-2
-position: absolute;/*←絶対位置*/
-    bottom: 0; /*下に固定*/
+
+.sub-regist-submit {
+	width:50px;
+	padding:5px;
 }
 
 .stu-regist-form {
     text-align: center;
-    background-color: green;
+    background-color: #59b395;
     color: black;
     margin-bottom:80px
 }
@@ -384,4 +446,9 @@ position: absolute;/*←絶対位置*/
 }
 #logout_h2{
 	margin-top: 10px;
+}
+
+#sub-form{
+	width: 200px;
+	
 }

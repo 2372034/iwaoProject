@@ -5,17 +5,19 @@
 	<%@include file="menu.jsp" %>
 		<div class="subject_content">
 		<h2>学生情報変更</h2>
-		<div>
-		<form action="StudentUpdateExecute.action" method="post">
-			<label>入学年度</label>
+		<form action="StudentUpdateExecute.action" method="post"required>
+			<label for="subjectCode">入学年度</label>
+			<div>
             <input type="number" name="ent_year" value="${student.entYear}" readonly>
-
+			</div>
             <label>学生番号</label>
+            <div>
             <input type="number" name="no" value="${student.no}" readonly>
-
+			</div>
             <label>氏名</label>
-            <input type="text" name="name" value="${student.name}" required>
-
+            <div>
+              <input type="text" name="name" value="${student.name}" required>
+            </div>
             <label>クラス</label>
                 <select name="class_num">
                     <option value="101">101</option>
@@ -29,5 +31,4 @@
 		</form>
 		</div>
 	</div>
-</div>
 <%@include file="../footer.jsp" %>

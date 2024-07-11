@@ -39,8 +39,8 @@
 					在学中
 				</label>
 			</div>
-			<div class="col-2 text-center">
-				<button class="btn btn-secondary" id="filter-button">絞り込み</button>
+			<div class="col-2_button_TestList">
+				<button class="btn btn-secondary" id="filter-button">絞込み</button>
 			</div>
 		</div>
 	</form>
@@ -54,7 +54,6 @@
 					<th>氏名</th>
 					<th>クラス</th>
 					<th class="text-center">在学中</th>
-					<th></th>
 					<th></th>
 				</tr>
 				<c:forEach var="student" items="${students}">
@@ -74,7 +73,6 @@
 							</c:choose>
 						</td>
 						<td><a href="StudentUpdate.action?no=${student.no}">変更</a></td>
-						<td><a href="StudentDelete.action?no=${student.no}">削除</a></td>
 					</tr>
 				</c:forEach>
 			</table>

@@ -46,8 +46,6 @@
 			</div>
 		</form>
 		</div>
-
-		<div class="test_search_studentNum">
 		<form method="get" action="TestListStudentExecute.action">
 			<div class="test_list_student">
 				<div class="col-2_test_list">学生番号</div>
@@ -60,7 +58,6 @@
 				</div>
 			</div>
 		</form>
-		</div>
 	</div>
 	<div class="attention">
 		<label>科目情報を選択または学生情報を入力して検索ボタンをクリックしてください</label>
