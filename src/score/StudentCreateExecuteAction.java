@@ -46,6 +46,21 @@ public class StudentCreateExecuteAction extends Action {
 
         // StudentDAOインスタンスを生成
         StudentDao dao = new StudentDao();
+
+     // 学生番号の検証
+        if (no == null || !no.matches("^\\d{1,10}$")) {
+            request.setAttribute("error2", "学生番号は数字のみ、10文字以内で入力してください。");
+            request.getRequestDispatcher("/score/StudentCreate.action").forward(request, response);
+            return;
+        }
+
+        // 氏名の検証
+        if (name == null || name.length() > 10) {
+            request.setAttribute("error3", "氏名は10文字以内で入力してください。");
+            request.getRequestDispatcher("/score/StudentCreate.action").forward(request, response);
+            return;
+        }
+
      // 学生番号の重複チェック
         Student existingStudent = dao.get(no);
         if (existingStudent != null) {

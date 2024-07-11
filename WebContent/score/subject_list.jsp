@@ -15,14 +15,12 @@
 			<th>科目コード</th>
 			<th>科目名</th>
 			<th></th>
-			<th></th>
 		</tr>
 		<c:forEach var="subject" items="${subjectList}">
 			<tr>
 				<td>${subject.cd}</td>
 				<td>${subject.name}</td>
 				<td><a href="SubjectUpdate.action?cd=${subject.cd}">変更</a></td>
-				<td><a href="SubjectDelete.action?cd=${subject.cd}">削除</a></td>
 			</tr>
 		</c:forEach>
 	</table>

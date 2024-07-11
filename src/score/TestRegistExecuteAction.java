@@ -97,10 +97,17 @@ public class TestRegistExecuteAction extends Action {
                 } else {
                     try {
                         int point = Integer.parseInt(pointStr);
-                        test.setPoint(point);
+                        if (point < 0 || point > 100) {
+                            request.setAttribute("error", "点数は0から100の間で入力してください。");
+                            request.getRequestDispatcher("/score/TestRegist.action").forward(request, response);
+                            return;
+                        } else {
+                            test.setPoint(point);
+                        }
                     } catch (NumberFormatException e) {
-                        errors.put("score_" + test.getStudent().getNo(), "点数は整数で入力してください。");
-                        hasErrors = true;
+                        request.setAttribute("error", "点数は整数で入力してください。");
+                        request.getRequestDispatcher("/score/TestRegist.action").forward(request, response);
+                        return;
                     }
                 }
                 // 点数が空でない場合のみリストに追加

@@ -18,6 +18,11 @@ public class SubjectUpdateExecuteAction extends Action {
         String cd = request.getParameter("cd");
         String name = request.getParameter("name");
 
+        if (name.length() > 20) {
+        request.setAttribute("error", "科目名は20文字以内で入力してください");
+        request.getRequestDispatcher("/score/SubjectUpdate.action").forward(request, response);
+        return; // ここで処理を終了
+        }
         // セッションから教師オブジェクトを取得する
         Teacher teacher = (Teacher) session.getAttribute("user");
 
