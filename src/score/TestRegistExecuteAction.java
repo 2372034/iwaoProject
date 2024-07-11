@@ -88,6 +88,7 @@ public class TestRegistExecuteAction extends Action {
 
         // 成績データの更新処理
         boolean hasErrors = false;
+        List<Test> testsToSave = new ArrayList<>();
         for (Test test : tests) {
             String pointStr = request.getParameter("score_" + test.getStudent().getNo());
             if (pointStr != null) {
@@ -96,18 +97,29 @@ public class TestRegistExecuteAction extends Action {
                 } else {
                     try {
                         int point = Integer.parseInt(pointStr);
-                        test.setPoint(point);
+                        if (point < 0 || point > 100) {
+                            request.setAttribute("error", "点数は0から100の間で入力してください。");
+                            request.getRequestDispatcher("/score/TestRegist.action").forward(request, response);
+                            return;
+                        } else {
+                            test.setPoint(point);
+                        }
                     } catch (NumberFormatException e) {
-                        errors.put("score_" + test.getStudent().getNo(), "点数は整数で入力してください。");
-                        hasErrors = true;
+                        request.setAttribute("error", "点数は整数で入力してください。");
+                        request.getRequestDispatcher("/score/TestRegist.action").forward(request, response);
+                        return;
                     }
+                }
+                // 点数が空でない場合のみリストに追加
+                if (test.getPoint() != null) {
+                    testsToSave.add(test);
                 }
             }
         }
 
         if (!hasErrors) {
             try {
-                boolean success = testDao.save(tests);
+                boolean success = testDao.save(testsToSave);
                 if (success) {
                     request.setAttribute("message", "テストデータの保存が成功しました。");
                 } else {

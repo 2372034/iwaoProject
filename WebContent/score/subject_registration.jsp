@@ -5,19 +5,22 @@
     <%@include file="menu.jsp" %>
     <div class="subject_content">
         <h2>科目情報登録</h2>
-        <form action="SubjectCreateExecute.action" method="post">
+        <form action="SubjectCreateExecute.action" method="post" class="subject-form">
             <label for="subjectCode">科目コード</label>
-            <input type="text" id="subjectCode" name="cd" required value="${cd}">
+            <input type="text" placeholder="科目コードを入力してください" name="cd" required value="${cd}">
             <!-- エラーメッセージの表示 -->
             <c:if test="${not empty error}">
-			<div class="error-message">科目コードは3文字で入力してください</div>
+			<div class="error-message">${error}</div>
 			</c:if>
             <c:if test="${not empty error2}">
-                <div class="error-message">科目コードが重複しています</div>
+                <div class="error-message">${error2}</div>
             </c:if>
             <label for="subjectName">科目名</label>
-            <input type="text" id="subjectName" name="name" required value="${name}">
-            <input type="submit" value="登録">
+            <input type="text" id="subjectName" name="name" placeholder="科目名を入力してください" required value="${name}">
+            <c:if test="${not empty error3}">
+                <div class="error-message">${error3}</div>
+            </c:if>
+            <input type="submit" class="sub-regist-submit" value="登録">
             <a href="/iwaoProject/score/SubjectList.action">戻る</a>
         </form>
     </div>

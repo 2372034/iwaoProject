@@ -24,6 +24,13 @@ public class StudentUpdateExecuteAction extends Action {
         String classNum = request.getParameter("class_num"); // クラス
         boolean isAttend = request.getParameter("si_attend") != null;
 
+        // 氏名の検証
+        if (name == null || name.length() > 10) {
+            request.setAttribute("error", "氏名は10文字以内で入力してください。");
+            request.getRequestDispatcher("/score/StudentUpdate.action").forward(request, response);
+            return;
+        }
+
         // Studentインスタンスを作成し、取得したパラメータをセット
         Student student = new Student();
         student.setNo(no);

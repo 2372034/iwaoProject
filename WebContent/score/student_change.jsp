@@ -15,9 +15,12 @@
             <input type="number" name="no" value="${student.no}" readonly>
 			</div>
             <label>氏名</label>
-            <div>
-              <input type="text" name="name" value="${student.name}" required>
-            </div>
+            <input type="text" name="name" value="${student.name}" required>
+            <c:if test="${not empty error}">
+                <div class="error-message">${error}</div>
+            </c:if>
+
+
             <label>クラス</label>
                 <select name="class_num">
                     <option value="101">101</option>

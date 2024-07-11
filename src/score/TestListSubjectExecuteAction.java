@@ -59,12 +59,17 @@ public class TestListSubjectExecuteAction extends Action {
         String selectedClass = request.getParameter("classes"); // ユーザー指定のクラス
         String selectedSubjectCd = request.getParameter("subjects"); // ユーザー指定の科目
         String studentNum = request.getParameter("studentNum"); // ユーザー指定の学生番号
-
-        // 出力してチェック
-		System.out.println(selectedYearStr);
-		System.out.println(selectedClass);
-		System.out.println(selectedSubjectCd);
-		System.out.println(studentNum);
+        System.out.println("untiiii");
+        if (entYear == 0 || selectedClass == null || selectedClass.equals("0") || selectedSubjectCd == null || selectedSubjectCd.equals("0")) {
+        String message = "入学年度とクラスと科目を選択してください";
+        request.setAttribute("message", message);
+        request.setAttribute("entYearSet", entYearSet); // f1 次のjspのセレクトボックス用
+        request.setAttribute("classes", classes); // f2 次のjspのセレクトボックス用
+        request.setAttribute("subjects", subjects);// 次のjspのセレクトボックス用
+        System.out.println("unti");
+        request.getRequestDispatcher("/score/test_list.jsp").forward(request, response);
+        return;
+        }
 
         // ユーザー指定のsubjectsを取得
         Subject subject = null;
@@ -75,10 +80,24 @@ public class TestListSubjectExecuteAction extends Action {
             }
         }
 
-        School school = teacher.getSchool(); // ここは適切なSchoolオブジェクトを取得する必要があります
+        // 入力値チェック 入っていなければmessegeに"入学年度とクラスと科目を選択してください"をセットしてreturn test_list.jsp
 
+        School school = teacher.getSchool(); // ここは適切なSchoolオブジェクトを取得する必要があります
+        System.out.println("entYear:" +entYear);
+        System.out.println("selectedClass:" +selectedClass);
+        System.out.println("subject:" +subject.getName());
+        System.out.println("school:" +school);
         TestListSubjectDao testListSubjectsDao = new TestListSubjectDao();
         List<TestListSubject> testListSubjects = testListSubjectsDao.filter(entYear, selectedClass, subject, school);
+
+        for (TestListSubject testListSubject : testListSubjects) {
+            // 各TestListSubjectオブジェクトに対する処理をここに書く
+            System.out.println("TestListSubject.entYear: " + testListSubject.getEntYear());
+            System.out.println("TestListSubject.studentNo: " + testListSubject.getStudentNo());
+            System.out.println("TestListSubject.studentName: " + testListSubject.getStudentName());
+            System.out.println("TestListSubject.classNum: " + testListSubject.getClassNum());
+            System.out.println("TestListSubject.point: " + testListSubject.getPoint(1));
+        }
 
         request.setAttribute("entYearSet", entYearSet); // f1 次のjspのセレクトボックス用
         request.setAttribute("classes", classes); // f2 次のjspのセレクトボックス用

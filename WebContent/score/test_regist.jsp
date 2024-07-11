@@ -7,7 +7,7 @@
     <div class="subject_content">
         <h2>成績管理</h2>
 
-        <form method="post" action="">
+        <form method="post" action="TestRegist.action">
             <div class="student_list_search" id="filter">
                 <!-- 入学年度のセレクトボックス -->
                 <div class="col-4">
@@ -52,8 +52,8 @@
                     </select>
                 </div>
                 <!-- 検索ボタン -->
-                <div class="col-2 text-center">
-                    <button class="btn btn-secondary" id="filter-button">検索</button>
+                <div class="col-2_button_TestList">
+                    <button class="btn-grades" id="filter-button">検索</button>
                 </div>
                 <!-- エラーメッセージの表示 -->
                 <div class="mt-2 text-warning">${errors.get("f1")}</div>
@@ -67,7 +67,11 @@
                     <input type="hidden" name="f2" value="${param.f2}">
                     <input type="hidden" name="f3" value="${param.f3}">
                     <input type="hidden" name="f4" value="${param.f4}">
-                    <p>科目：${selectedSubjectName}（${selectedTestNum}回）</p>
+                    <c:set var="subjectName" value="${students[0].subject.name}" />
+                    <p>科目：${subjectName}（${f4}回）</p>
+                    <c:if test="${not empty error}">
+						<div class="error-message">${error}</div>
+					</c:if>
                     <table class="table table-hover">
                         <thead>
                             <tr>

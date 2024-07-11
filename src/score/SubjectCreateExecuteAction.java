@@ -39,7 +39,7 @@ public class SubjectCreateExecuteAction extends Action {
            request.setAttribute("error", "科目コードは3文字で入力してください");
            request.setAttribute("cd", cd); // 入力された科目コードをリクエストスコープに設定
            request.setAttribute("name", name); // 入力された科目名をリクエストスコープに設定
-           request.getRequestDispatcher("/score/subject_registration.jsp").forward(request, response);
+           request.getRequestDispatcher("/score/SubjectCreate.action").forward(request, response);
            return; // ここで処理を終了
 
            }
@@ -48,8 +48,15 @@ public class SubjectCreateExecuteAction extends Action {
             request.setAttribute("error2", "科目コードが重複しています");
             request.setAttribute("cd", cd); // 科目コードを再設定
             request.setAttribute("name", name); // 科目名を再設定
-            request.getRequestDispatcher("/score/subject_registration.jsp").forward(request, response);
+            request.getRequestDispatcher("/score/SubjectCreate.action").forward(request, response);
             return; // エラーがあった場合はここで処理を終了する
+        }
+        if (name.length() > 20) {
+        request.setAttribute("error3", "科目名は20文字以内で入力してください");
+        request.setAttribute("cd", cd); // 入力された科目コードをリクエストスコープに設定
+        request.setAttribute("name", name); // 入力された科目名をリクエストスコープに設定
+        request.getRequestDispatcher("/score/SubjectCreate.action").forward(request, response);
+        return; // ここで処理を終了
         }
         boolean count = dao.save(subject);
 

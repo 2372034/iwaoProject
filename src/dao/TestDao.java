@@ -113,9 +113,27 @@ public class TestDao extends Dao {
         Connection connection = getConnection();
         PreparedStatement statement = null;
         ResultSet rSet = null;
-
         try {
-            // SQLクエリを準備して実行
+        if(no==2){
+        	 String sql = "SELECT student.NO AS student_no, student.NAME, student.ENT_YEAR, student.CLASS_NUM, student.SCHOOL_CD, "
+                     + "COALESCE(test.SUBJECT_CD, ?) AS SUBJECT_CD, COALESCE(test.NO, ?) AS NO, test.POINT "
+                     + "FROM student "
+                     + "LEFT JOIN (SELECT student_no, SUBJECT_CD, NO, POINT "
+                     + "FROM test WHERE no = ? AND subject_cd = ?) AS test "
+                     + "ON student.no = test.student_no "
+                     + "WHERE student.school_cd = ? AND student.ent_year = ? AND student.class_num = ? "
+                     + "AND EXISTS (SELECT 1 FROM test t1 WHERE t1.student_no = student.no AND t1.no = 1 AND t1.subject_cd = ?)";
+             statement = connection.prepareStatement(sql);
+             statement.setString(1, subject);
+             statement.setInt(2, no);
+             statement.setInt(3, no);
+             statement.setString(4, subject);
+             statement.setString(5, school.getCd());
+             statement.setInt(6, entYear);
+             statement.setString(7, classNum);
+             statement.setString(8, subject);
+        }else{
+        	// SQLクエリを準備して実行
             String sql = "SELECT student.NO AS student_no, student.NAME, student.ENT_YEAR, student.CLASS_NUM, student.SCHOOL_CD, "
                     + "COALESCE(test.SUBJECT_CD, ?) AS SUBJECT_CD, COALESCE(test.NO, ?) AS NO, test.POINT "
                     + "FROM student "
@@ -131,6 +149,7 @@ public class TestDao extends Dao {
             statement.setString(5, school.getCd());
             statement.setInt(6, entYear);
             statement.setString(7, classNum);
+        }
             rSet = statement.executeQuery();
 
             // 結果をリストに変換
