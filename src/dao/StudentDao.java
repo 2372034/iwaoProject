@@ -119,8 +119,9 @@ public class StudentDao extends Dao{
         //在学フラグがtrueの場合
         if(isAttend){
             conditionIsAttend = "AND is_attend=true";
+        } else {
+            conditionIsAttend = "AND is_attend=false";
         }
-
         try{
             //プリペアードステートメントにSQL文をセット
             statement = connection.prepareStatement(baseSql + condition +  conditionIsAttend + order);
@@ -177,6 +178,8 @@ public class StudentDao extends Dao{
         //在学フラグがtrueの場合
         if(isAttend){
             conditionIsAttend = "AND is_attend=true";
+        }else {
+            conditionIsAttend = "AND is_attend=false";
         }
 
         try{
