@@ -55,8 +55,6 @@
                 <div class="col-2_button_TestList">
                     <button class="btn-grades" id="filter-button">検索</button>
                 </div>
-                <!-- エラーメッセージの表示 -->
-                <div class="mt-2 text-warning">${errors.get("f1")}</div>
             </div>
         </form>
 
@@ -92,6 +90,9 @@
                                     <td>
                                     <input type="text" name="score_${test.student.no}" value="${test.point}" />
                                     </td>
+                                    <c:if test="${not empty error}">
+                                        <td class="error-message">${error}</td>
+                                    </c:if>
                                 </tr>
                             </c:forEach>
                         </tbody>

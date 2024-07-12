@@ -87,6 +87,7 @@ public class TestRegistExecuteAction extends Action {
         request.setAttribute("subject_set", subList);
 
         // 成績データの更新処理
+        // 成績データの更新処理
         boolean hasErrors = false;
         List<Test> testsToSave = new ArrayList<>();
         for (Test test : tests) {
@@ -98,14 +99,14 @@ public class TestRegistExecuteAction extends Action {
                     try {
                         int point = Integer.parseInt(pointStr);
                         if (point < 0 || point > 100) {
-                            request.setAttribute("error", "点数は0から100の間で入力してください。");
+                            request.setAttribute("error", "点数は0から100の間で入力してください。"); // ここを追加
                             request.getRequestDispatcher("/score/TestRegist.action").forward(request, response);
                             return;
                         } else {
                             test.setPoint(point);
                         }
                     } catch (NumberFormatException e) {
-                        request.setAttribute("error", "点数は整数で入力してください。");
+                        request.setAttribute("error", "点数は整数で入力してください。"); // ここを追加
                         request.getRequestDispatcher("/score/TestRegist.action").forward(request, response);
                         return;
                     }
@@ -116,6 +117,7 @@ public class TestRegistExecuteAction extends Action {
                 }
             }
         }
+
 
         if (!hasErrors) {
             try {
