@@ -58,13 +58,7 @@
 
         </div>
         <c:choose>
-            <c:when test="${not empty error}">
-                <div>${error}</div>
-            </c:when>
-            <c:when test="${not empty error2}">
-				<div>${error2}</div>
-				<div>成績情報が存在しませんでした</div>
-            </c:when>
+
             <c:when test="${not empty students}">
                 <div>検索結果: ${students.size()}件</div>
                 <table class="table table-hover">

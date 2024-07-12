@@ -67,12 +67,21 @@
                             <button class="btn btn-secondary" id="filter-button">検索</button>
                         </div>
                     </div>
+	                    <c:if test="${not empty error}">
+	               	    	<div style="color: orange;">${error}</div>
+	                    </c:if>
                 </form>
             </div>
         </div>
         	<div class="attention">
 		<label>科目情報を選択または学生情報を入力して検索ボタンをクリックしてください</label>
 		</div>
+            <c:if test="${not empty error2}">
+                <div>${error2}</div>
+            </c:if>
+            <c:if test="${not empty error3}">
+                <div>${error3}</div>
+            </c:if>
     </div>
 </div>
 <%@ include file="../footer.jsp" %>

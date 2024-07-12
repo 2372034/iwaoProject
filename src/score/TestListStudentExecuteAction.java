@@ -67,6 +67,12 @@ public class TestListStudentExecuteAction extends Action{
         String studentNum = request.getParameter("studentNum");
         System.out.println("Received studentNum: " + studentNum);
 
+        if (studentNum == null || studentNum.trim().isEmpty()) {
+            request.setAttribute("error", "このフィールドを入力してください");
+            request.getRequestDispatcher("/score/TestList.action").forward(request, response);
+            return;
+        }
+
         // Daoインスタンスの作成
         StudentDao studentDao = new StudentDao();
         TestListStudentDao testListStudentDao = new TestListStudentDao();
@@ -74,11 +80,12 @@ public class TestListStudentExecuteAction extends Action{
         // 学生情報の取得
         Student stu = studentDao.get(studentNum);
 
+
         String expectedSchoolCode =teacher.getSchool().getCd();
         if (stu == null || !expectedSchoolCode.equals(stu.getSchool().getCd())) {
             System.out.println("Student not found with studentNum: " + studentNum);
-            request.setAttribute("error", "学生情報が存在しませんでした");
-            request.getRequestDispatcher("/score/test_list_student.jsp").forward(request, response);
+            request.setAttribute("error2", "学生情報が存在しませんでした");
+            request.getRequestDispatcher("/score/TestList.action").forward(request, response);
             return;
         }
 
@@ -86,9 +93,9 @@ public class TestListStudentExecuteAction extends Action{
         List<TestListStudent> tests = testListStudentDao.filter(stu);
         if (tests == null || tests.isEmpty()) {
             System.out.println("No test records found for studentNum: " + studentNum);
-            request.setAttribute("error2", "氏名：" + stu.getName() + " (" + studentNum + ")");
+            request.setAttribute("error3", "氏名：" + stu.getName() + " (" + studentNum + ")");
             request.setAttribute("student", stu); // 学生情報をリクエストにセット
-            request.getRequestDispatcher("/score/test_list_student.jsp").forward(request, response);
+            request.getRequestDispatcher("/score/TestList.action").forward(request, response);
             return;
         }
         // リクエストにテストリストをセット
