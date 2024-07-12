@@ -79,6 +79,7 @@ public class TestListStudentExecuteAction extends Action{
 
         // 学生情報の取得
         Student stu = studentDao.get(studentNum);
+        request.setAttribute("studentNum", studentNum);
 
 
         String expectedSchoolCode =teacher.getSchool().getCd();
